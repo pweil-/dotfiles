@@ -41,6 +41,7 @@ alias stop="sudo /Applications/MAMP/bin/apache2/bin/apachectl stop; /Application
 alias db="mysql -u root -proot"
 
 alias cb="cd ~/codebase/twobook_naansense/trunk"
+alias cbg="cd ~/codebase/git/dotfiles"
 
 alias phplog="tail -f /Applications/MAMP/logs/php_error.log"
 

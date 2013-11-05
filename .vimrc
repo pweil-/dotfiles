@@ -1,6 +1,7 @@
 set nu
 syntax on
-color desert
+set background=dark
+color solarized
 
 " Enable filetype plugins and disable vi compatibility
 set nocompatible
