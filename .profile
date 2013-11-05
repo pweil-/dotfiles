@@ -52,15 +52,3 @@ alias rnginx="sudo nginx -s reload"
 
 alias svns="svn status"
 
-
-###
-# use quiet status for subversion to ignore unversioned files
-###
-function svn(){
-	if [[ $1 == "status" ]]; then
-		shift
-		command svn status --quiet $@
-	else
-		command svn $@
-	fi
-}
