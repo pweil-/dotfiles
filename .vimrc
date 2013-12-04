@@ -79,8 +79,8 @@ nnoremap j gj
 nnoremap k gk
 
 " Custom whitespaces and tabs view
-set list
-set listchars=trail:·,tab:··
+" set list
+" set listchars=trail:·,tab:··
 
 " Set leader button
 let mapleader = ","
