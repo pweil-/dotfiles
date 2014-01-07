@@ -54,3 +54,6 @@ alias rnginx="sudo nginx -s reload"
 
 alias svns="svn status"
 
+alias tbu="cb; cd etc/vagrant; vagrant restore"
+alias tbd="cb; cd etc/vagrant; vagrant suspend"
+
