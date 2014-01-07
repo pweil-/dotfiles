@@ -4,8 +4,6 @@ rm -Rf .vim
 rm -Rf .vimrc
 rm -Rf .bashrc
 
-git clone https://github.com/pweil-/dotfiles.git
-
 ln -s dotfiles/.vim .vim
 ln -s dotfiles/.vimrc .vimrc
 ln -s dotfiles/.bashrc .bashrc
