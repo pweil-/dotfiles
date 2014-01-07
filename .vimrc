@@ -55,9 +55,6 @@ set autoindent
 set copyindent
 set smartindent
 
-" Enable color line to prevent long lines
-set colorcolumn=121
-
 " Set tabstop end expad tabs to spaces
 set tabstop=4
 set shiftwidth=4
@@ -65,11 +62,16 @@ set shiftwidth=4
 " Hide tabline
 " set showtabline=0
 
-" Enable undo history between sessions
-set undofile
-set undodir=~/.vim/undodir
-set undolevels=1000
-set undoreload=10000
+if version > 703
+   " Enable color line to prevent long lines
+   set colorcolumn=121
+
+   " Enable undo history between sessions
+   set undofile
+   set undodir=~/.vim/undodir
+   set undolevels=1000
+   set undoreload=10000
+endif
 
 " Show incomplete command on footer
 set showcmd
