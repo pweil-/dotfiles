@@ -12,4 +12,3 @@ cd dotfiles
 git remote set-url origin https://pweil-@github.com/pweil-/dotfiles.git
 
 cd ~
-source ~/.bashrc
