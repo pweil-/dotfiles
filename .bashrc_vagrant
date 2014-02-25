@@ -14,6 +14,6 @@ alias l="ls"
 
 alias phplog="tail -f /2book/logs/two_book/$(date +%Y%m%d).twobook.error.log"
 alias cb="cd /2book/src/two_book"
-alias db="mysql -u root -proot"
+alias db="mysql -u root -proot --database=two_book"
 
 
