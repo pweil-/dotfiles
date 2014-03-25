@@ -15,5 +15,5 @@ alias l="ls"
 alias phplog="tail -f /2book/logs/two_book/$(date +%Y%m%d).twobook.error.log"
 alias cb="cd /2book/src/two_book"
 alias db="mysql -u root -proot --database=two_book"
-
+alias restoredb="php /vagrant/src/scripts/restore_db.php -f test -t local -d two_book -i /vagrant/etc/vagrant/vagrant_db/scrubbed.sql"
 
