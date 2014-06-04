@@ -21,7 +21,12 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'kien/ctrlp.vim'
 
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 " ---------------------------- End Vundle Configuration --------------------
 
 
@@ -31,7 +36,6 @@ set background=dark
 color solarized
 
 " Enable filetype plugins and disable vi compatibility
-set nocompatible
 filetype on
 filetype plugin on
 
@@ -116,3 +120,6 @@ let mapleader = ","
 
 " Set 256 color terminal
 set t_Co=256
+
+" Turn off auto working path feature (CtrlP)
+let g:ctrlp_working_path_mode = ''
