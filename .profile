@@ -54,8 +54,10 @@ alias rnginx="sudo nginx -s reload"
 
 alias svns="svn status"
 
-alias tbv="cb; cd etc/vagrant"
+alias tbv="cb; cd etc/vagrant-prod"
 alias tbu="tbv; vagrant resume"
 alias tbd="tbv; vagrant suspend"
-alias tbs="tbv; vagrant ssh"
+alias tbb="tbv; vagrant ssh beanstalk"
+alias tbdb="tbv; vagrant ssh database"
+alias tbw="tbv; vagrant ssh web-1"
 
