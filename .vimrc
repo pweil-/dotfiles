@@ -23,6 +23,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
+Bundle 'Lokaltog/vim-powerline'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

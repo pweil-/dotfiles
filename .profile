@@ -58,6 +58,7 @@ alias tbv="cb; cd etc/vagrant-prod"
 alias tbu="tbv; vagrant resume"
 alias tbd="tbv; vagrant suspend"
 alias tbb="tbv; vagrant ssh beanstalk"
-alias tbdb="tbv; vagrant ssh database"
+alias tbdb="tbv; vagrant ssh db"
 alias tbw="tbv; vagrant ssh web-1"
+alias tbn="tbv; vagrant ssh lb"
 
