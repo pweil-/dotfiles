@@ -40,7 +40,7 @@ alias stop="sudo /Applications/MAMP/bin/apache2/bin/apachectl stop; /Application
 
 alias db="mysql -u root -proot"
 
-alias cb="cd ~/codebase/twobook_naansense/trunk"
+alias cb="cd ~/codebase/twobook_git/twobook_naansense"
 alias cbb="cd ~/codebase/twobook_naansense/branches"
 alias cbg="cd ~/codebase/git/dotfiles"
 
