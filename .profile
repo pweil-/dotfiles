@@ -63,4 +63,5 @@ alias tbw="tbv; vagrant ssh web-1"
 alias tbn="tbv; vagrant ssh lb"
 
 #Git stuff
-alias gu="git checkout master; git svn rebase"
+alias restash="cb; git checkout etc/vagrant-prod/Vagrantfile src/application/config/database.php"
+alias gu="restash; git checkout master; git svn rebase; git stash apply stash@{0}"
