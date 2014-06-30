@@ -1,0 +1,110 @@
+http://viget.com/extend/effectively-using-git-with-subversion
+https://www.kernel.org/pub/software/scm/git/docs/git-svn.html
+
+getting started with git:
+	mkdir twobook_git
+	cd twobook_git
+	git svn clone --stdlayout https://twobook.unfuddle.com/svn/twobook_naansense
+
+updating your code
+	git checkout master
+	git svn rebase
+	
+updating all branches
+	git fetch
+
+create feature branch: 
+	git branch <name> (make sure you're on the master or whichever branch you want to branch from)
+	
+checkout a remote branch from svn and merging into it
+	git svn fetch (update all remote listing)
+	git branch --list -a (show all remote branches)
+	git checkout -b <local name> remotes/<branch name>
+	git cherry-pick <check in hash>
+	
+	See what you're going to commit
+	git svn dcommit --dry-run
+	
+	See diffs in change tree (this uses the output of dry-run with the additional -u param at the end
+	git diff-tree <change1> <change2> -u
+	
+	Commit 
+	git svn dcommit
+
+merge from feature branch back to master with a single commit (to have multi commits remove --squash):
+	git checkout master
+	git merge --squash <feature branch name>
+	
+reverting:
+	if the file hasn't been added to change set: git checkout <file>
+	if it has been added to the change set: git reset HEAD <file>
+	
+committing branch to master to svn:
+	(make branch and make your change there)
+	(switch to master branch) git checkout master
+	(get any updates) git svn rebase
+	(add your changes) git merge --squash <feature branch>
+	(commit to master) git commit -m "your commit message"
+	(send to svn) git svn dcommit
+
+
+
+
+
+[6/17/14, 2:41:18 PM] Robert Landers: type:
+[6/17/14, 2:41:24 PM] Robert Landers: git config --global -e
+[6/17/14, 2:41:39 PM] Robert Landers: and drop this into your config file -- some handy aliases I've kept around
+[6/17/14, 2:41:40 PM] Robert Landers: [alias]
+        st = status
+        co = checkout
+        cob = checkout -b
+        cp = cherry-pick
+        up = add -up
+        c = commit -m
+        lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+        todo      = grep --heading --break --ignore-case -e 'TODO:'
+        fix       = grep --heading --break --ignore-case -e 'FIX:' -e 'FIXME:'
+        conflicts = !git ls-files -u | cut -f 2 | sort -u
+[6/17/14, 2:42:38 PM] Robert Landers: usages:
+[6/17/14, 2:42:49 PM] Robert Landers: git st - git the status
+[6/17/14, 2:42:57 PM] Robert Landers: git co - checkout a branch
+[6/17/14, 2:43:04 PM] Robert Landers: git cob - create a new branch
+[6/17/14, 2:43:50 PM] Robert Landers: git cp 89daa80 - copy a commit from another branch to the current branch that is checked out (get the hash from git lg)
+[6/17/14, 2:44:13 PM] Robert Landers: git up - interactive staging
+[6/17/14, 2:44:22 PM] Robert Landers: git c - commit staged files
+[6/17/14, 2:44:38 PM] Robert Landers: git lg - show a pretty log of all changes
+[6/17/14, 2:44:52 PM] Robert Landers: git todo - get all the todos in the source
+[6/17/14, 2:45:03 PM] Robert Landers: git fix - get everything marked as fix in the code
+[6/17/14, 2:45:20 PM] Robert Landers: git conflicts - show current conflicts
+[6/17/14, 2:46:08 PM] Robert Landers: drop this in your .profile to keep you from doing stupid svn commits
+[6/17/14, 2:46:10 PM] Robert Landers: real_git=$(which git)
+function git {
+    if [[ ($1 == svn) && ($2 == dcommit) ]]
+    then
+        curr_branch=$($real_git branch | sed -n 's/\* //p')
+        if [[ ($curr_branch != master) && ($curr_branch != '(no branch)') ]]
+        then
+            if [[ ($curr_branch != work) ]]
+            then
+                    echo "Committing from $curr_branch; are you sure? [y/N]"
+                    read resp
+                    if [[ ($resp != y) && ($resp != Y) ]]
+                    then
+                        return 2
+                    fi
+            else
+                    return 2
+            fi
+        fi
+    fi
+    $real_git "$@"
+}
+
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+      . /opt/local/etc/profile.d/bash_completion.sh
+  fi
+[6/17/14, 2:46:56 PM] Robert Landers: second part turns on macports bash completion
+[6/17/14, 2:47:13 PM] Robert Landers: built in mac bash doesn't support bash completion apparently
+[6/17/14, 3:07:33 PM] Robert Landers: I also recommend sourcing https://github.com/magicmonty/bash-git-prompt and checkout hash 08212d8a92f3c9c914c706715bf3350977ed2f1f (the last working commit for macports bash)
+[6/17/14, 3:08:48 PM] Robert Landers: at least version 2.2.1
+[6/17/14, 3:08:51 PM] Robert Landers: of macports
