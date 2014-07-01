@@ -64,5 +64,6 @@ alias tbn="tbv; vagrant ssh lb"
 
 #Git stuff
 alias restash="cb; git checkout etc/vagrant-prod/Vagrantfile src/application/config/database.php src/scripts/server_setup/setup/nginx/development/default.conf"
-alias gu="restash; git checkout master; git svn rebase; git stash apply stash@{0}"
+alias unstash="git stash apply stash@{0}"
+alias gu="restash; git checkout master; git svn rebase; unstash"
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
