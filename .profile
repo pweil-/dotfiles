@@ -1,3 +1,10 @@
+setupMacEnv() {
+	alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+    # MacPorts Installer addition on 2013-10-23_at_18:08:49: adding an appropriate PATH variable for use with MacPorts.
+    # Finished adapting your PATH environment variable for use with MacPorts.
+    export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+}
+
 setupAliases () {
 	###
 	# shell command aliases
@@ -12,7 +19,6 @@ setupAliases () {
 	alias sop="source ~/.profile"
 
 
-	alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 	alias vi=vim
 
 	alias vimrc='vi ~/.vimrc'
@@ -81,10 +87,37 @@ devGoLangTutorial () {
 }
 
 devOpenShift () {
-	echo "test"
+    export OS_ROOT=/home/pweil/codebase/openshiftgo/src/github.com/openshift/origin
+    export OS_BIN=${OS_ROOT}/_output/go/bin
+    export GOPATH=${OS_ROOT}/Godeps/_workspace:/home/pweil/codebase/openshiftgo
+	export PATH=$PATH:~/bin:$GOPATH/bin:/usr/local/go/bin:${OS_BIN}
+
+    ###
+    # Making the decision to always run OS via aliases in the hack directory for consistency even though it's on the path
+    ###
+	alias cbo='cd ${OS_ROOT}'
+	alias cboh="cbo; cd hack"
+	alias osrb='cbo; make clean; make; cd hack'
+
+    # lifecycle
+	alias osk="ps -ef | grep 'openshift start' | grep -v grep | awk '{ print $2 }' | xargs kill"
+	alias oss="cboh; openshift start 1>&2"
+	alias osc="cboh; rm -Rf openshift.local.*; rm -Rf /tmp/openshift.local.*"
+	alias os="openshift"
+
+
+	alias osdtt="cboh; ./test-deploy.sh 192.168.1.139 8080 1"
 }
 
+#########################
+# Other utility functions
+#########################
+fixAppleFn() {
+    echo "You must sudo su and run the following command:"
+    echo "echo 0 > /sys/module/hid_apple/parameters/fnmode"
+}
 
+#setupMacEnv
 setupAliases
 gitSetup
 
@@ -92,11 +125,8 @@ gitSetup
 # setup the correct dev env here
 ###
 #devTwoBook
-devGoLangTutorial
-#devOpenShift
+#devGoLangTutorial
+devOpenShift
 
 
-# MacPorts Installer addition on 2013-10-23_at_18:08:49: adding an appropriate PATH variable for use with MacPorts.
-# Finished adapting your PATH environment variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 

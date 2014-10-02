@@ -24,6 +24,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-powerline'
+Plugin 'fatih/vim-go'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -33,8 +34,12 @@ filetype plugin indent on    " required
 
 set nu
 syntax on
+
 set background=dark
+let g:solarized_termcolors=16
+set t_Co=16
 color solarized
+
 
 " Enable filetype plugins and disable vi compatibility
 filetype on
@@ -91,6 +96,8 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 
+set expandtab
+
 " Hide tabline
 " set showtabline=0
 
@@ -113,14 +120,23 @@ nnoremap j gj
 nnoremap k gk
 
 " Custom whitespaces and tabs view
-" set list
+set list
 " set listchars=trail:·,tab:··
 
 " Set leader button
 let mapleader = ","
 
-" Set 256 color terminal
-set t_Co=256
 
 " Turn off auto working path feature (CtrlP)
 let g:ctrlp_working_path_mode = ''
+
+
+" Added from the OpenShift vimrc
+"flag problematic whitespace (trailing and spaces before tabs)
+""Note you get the same by doing let c_space_errors=1 but
+"this rule really applies to everything.
+highlight RedundantSpaces term=standout ctermbg=red guibg=red
+match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
+""use :set list! to toggle visible whitespace on/off
+set listchars=tab:>-,trail:.,extends:>
+" End Added from the OpenShift vimrc
