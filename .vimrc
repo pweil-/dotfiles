@@ -74,9 +74,14 @@ set nobackup
 
 " Hide mouse while typing
 set mousehide
+set mouse=a
 
 " Show match for partly typed search command
 set incsearch
+
+" Split to the right or below
+set splitright
+set splitbelow
 
 " Ignore case when using a search pattern
 set ignorecase

@@ -87,6 +87,9 @@ devGoLangTutorial () {
 }
 
 devOpenShift () {
+    #disable alt+f1 shortcut for fedora setup
+    gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
+
     export OS_ROOT=/home/pweil/codebase/openshiftgo/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/go/bin
     export GOPATH=${OS_ROOT}/Godeps/_workspace:/home/pweil/codebase/openshiftgo
@@ -100,13 +103,20 @@ devOpenShift () {
 	alias osrb='cbo; make clean; make; cd hack'
 
     # lifecycle
-	alias osk="ps -ef | grep 'openshift start' | grep -v grep | awk '{ print $2 }' | xargs kill"
 	alias oss="cboh; openshift start 1>&2"
-	alias osc="cboh; rm -Rf openshift.local.*; rm -Rf /tmp/openshift.local.*"
+	alias osc="cboh; rm -Rf openshift.local.*; rm -Rf /tmp/openshift.local.*; rm -Rf /home/pweil/codebase/openshiftOriginProject/openshift.local.*; rm /home/pweil/codebase/openshiftOriginProject/openshift"
 	alias os="openshift"
+	alias osk="openshift kube -h 192.168.1.139:8080"
 
+	alias osdtt="cboh; ./test-deploy.sh 192.168.1.139 8080"
+}
 
-	alias osdtt="cboh; ./test-deploy.sh 192.168.1.139 8080 1"
+oskill() {
+    ps -ef | grep "openshift start" | grep -v grep | awk '{ print $2 }' | xargs kill
+}
+
+dockerClear() {
+    docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 }
 
 #########################
