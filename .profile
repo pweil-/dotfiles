@@ -93,7 +93,7 @@ devOpenShift () {
     export OS_ROOT=/home/pweil/codebase/openshiftgo/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/go/bin
     export GOPATH=${OS_ROOT}/Godeps/_workspace:/home/pweil/codebase/openshiftgo
-	export PATH=$PATH:~/bin:$GOPATH/bin:/usr/local/go/bin:${OS_BIN}
+	export PATH=$PATH:~/bin:$GOPATH/bin:/usr/local/go/bin:${OS_BIN}:/opt/etcd
 
     ###
     # Making the decision to always run OS via aliases in the hack directory for consistency even though it's on the path
@@ -104,7 +104,7 @@ devOpenShift () {
 
     # lifecycle
 	alias oss="cboh; openshift start 1>&2"
-	alias osc="cboh; rm -Rf openshift.local.*; rm -Rf /tmp/openshift.local.*; rm -Rf /home/pweil/codebase/openshiftOriginProject/openshift.local.*; rm /home/pweil/codebase/openshiftOriginProject/openshift"
+	alias osc="rm -Rf ${OS_ROOT}/hack/openshift.local.*; rm -Rf /tmp/openshift.local.*; rm -Rf /home/pweil/codebase/openshiftOriginProject/openshift.local.*; rm -f /home/pweil/codebase/openshiftOriginProject/openshift"
 	alias os="openshift"
 	alias osk="openshift kube -h 192.168.1.139:8080"
 
