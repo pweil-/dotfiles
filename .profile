@@ -123,8 +123,7 @@ dockerClear() {
 # Other utility functions
 #########################
 fixAppleFn() {
-    echo "You must sudo su and run the following command:"
-    echo "echo 0 > /sys/module/hid_apple/parameters/fnmode"
+    sudo su -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"
 }
 
 #setupMacEnv

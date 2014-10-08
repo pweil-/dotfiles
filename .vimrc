@@ -26,7 +26,9 @@ Plugin 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-powerline'
 Plugin 'fatih/vim-go'
 Plugin 'airblade/vim-gitgutter'
-Plugin "Shougo/neocomplcache"
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/echodoc.vim'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -126,25 +128,98 @@ set showcmd
 nnoremap j gj
 nnoremap k gk
 
-" Custom whitespaces and tabs view
-set list
-" set listchars=trail:·,tab:··
-
 " Set leader button
 let mapleader = ","
 
 
 " Turn off auto working path feature (CtrlP)
 let g:ctrlp_working_path_mode = ''
-
+" show characters
+set list
 
 " Added from the OpenShift vimrc
 "flag problematic whitespace (trailing and spaces before tabs)
 ""Note you get the same by doing let c_space_errors=1 but
 "this rule really applies to everything.
 
-"highlight RedundantSpaces term=standout ctermbg=red guibg=red
-"match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
-"set listchars=tab:>-,trail:.,extends:>
+highlight RedundantSpaces term=standout ctermbg=red guibg=red
+match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
+set listchars=tab:>-,trail:.,extends:>
 
 " End Added from the OpenShift vimrc
+
+"****************************** NeoComplete Config *****************
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+"****************************** End NeoComplete Config *****************
+
+"****************************** Echodoc Config *****************
+" this will allow neocomplete to show a doc preview in the command line area
+" instead of the auto resizing scratch area that screws with the main screen
+set cmdheight=2
+let g:echodoc_enable_at_startup=1
+set completeopt+=menuone
+set completeopt-=preview
+"****************************** End Echodoc Config *****************
+
