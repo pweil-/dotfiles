@@ -111,6 +111,14 @@ devOpenShift () {
 	alias osdtt="cboh; ./test-deploy.sh 192.168.1.139 8080"
 }
 
+devKube() {
+    export KUBERNETES_PROVIDER=vagrant
+    export KUBERNETES_NUM_MINIONS=1
+    export KUBE_CODE_HOME=~/codebase/openshiftgo/src/github.com/GoogleCloudPlatform/kubernetes
+    alias  cbk="cd $KUBE_CODE_HOME"
+    alias kubecfg="$KUBE_CODE_HOME/cluster/kubecfg.sh"
+}
+
 oskill() {
     ps -ef | grep "openshift start" | grep -v grep | awk '{ print $2 }' | xargs kill
 }
