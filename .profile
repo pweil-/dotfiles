@@ -117,6 +117,9 @@ devKube() {
     export KUBE_CODE_HOME=~/codebase/openshiftgo/src/github.com/GoogleCloudPlatform/kubernetes
     alias  cbk="cd $KUBE_CODE_HOME"
     alias kubecfg="$KUBE_CODE_HOME/cluster/kubecfg.sh"
+
+    echo "Warning: an alias to kubecfg has been created.  If you are trying to start a vagrant cluster this could"
+    echo "cause an issue.  Unalias kubecfg before starting the cluster"
 }
 
 oskill() {
