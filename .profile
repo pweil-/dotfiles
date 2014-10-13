@@ -113,7 +113,7 @@ devOpenShift () {
 
 devKube() {
     export KUBERNETES_PROVIDER=vagrant
-    export KUBERNETES_NUM_MINIONS=1
+    export KUBERNETES_NUM_MINIONS=2
     export KUBE_CODE_HOME=~/codebase/openshiftgo/src/github.com/GoogleCloudPlatform/kubernetes
     alias  cbk="cd $KUBE_CODE_HOME"
     alias kubecfg="$KUBE_CODE_HOME/cluster/kubecfg.sh"
