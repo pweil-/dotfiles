@@ -118,6 +118,10 @@ devKube() {
     alias  cbk="cd $KUBE_CODE_HOME"
     alias kubecfg="$KUBE_CODE_HOME/cluster/kubecfg.sh"
 
+    alias km1="cbk;vagrant ssh minion-1"
+    alias km2="cbk;vagrant ssh minion-2"
+    alias kmm="cbk;vagrant ssh master"
+
     echo "Warning: an alias to kubecfg has been created.  If you are trying to start a vagrant cluster this could"
     echo "cause an issue.  Unalias kubecfg before starting the cluster"
 }
