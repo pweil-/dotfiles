@@ -103,7 +103,7 @@ devOpenShift () {
 	alias osrb='cbo; make clean; make; cd hack'
 
     # lifecycle
-	alias oss="cboh; openshift start 1>&2"
+	alias oss="cboh; openshift --listenAddr=192.168.1.139:8080 start 1>&2"
 	alias osc="rm -Rf ${OS_ROOT}/hack/openshift.local.*; rm -Rf /tmp/openshift.local.*; rm -Rf /home/pweil/codebase/openshiftOriginProject/openshift.local.*; rm -f /home/pweil/codebase/openshiftOriginProject/openshift"
 	alias os="openshift"
 	alias osk="openshift kube -h 192.168.1.139:8080"
