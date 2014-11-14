@@ -140,6 +140,10 @@ dockerClear() {
     docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 }
 
+niceEtcd(){
+    curl -L -s "${1}" | python -m json.tool
+}
+
 #########################
 # Other utility functions
 #########################
