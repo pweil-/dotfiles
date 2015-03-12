@@ -91,7 +91,7 @@ devOpenShift () {
     gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
 
     export OS_ROOT=/home/pweil/codebase/openshiftgo/src/github.com/openshift/origin
-    export OS_BIN=${OS_ROOT}/_output/local/bin/linux/amd64/:${OS_ROOT}/_output/go/bin
+    export OS_BIN=${OS_ROOT}/_output/local/go/bin
     export GOPATH=${OS_ROOT}/Godeps/_workspace:/home/pweil/codebase/openshiftgo
     export PATH=$PATH:~/bin:$GOPATH/bin:/usr/local/go/bin:${OS_BIN}:/opt/etcd
 
