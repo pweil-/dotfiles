@@ -1,9 +1,32 @@
-setupMacEnv() {
-    alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-    # MacPorts Installer addition on 2013-10-23_at_18:08:49: adding an appropriate PATH variable for use with MacPorts.
-    # Finished adapting your PATH environment variable for use with MacPorts.
-    export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-}
+platform=$(uname)
+
+if [[ "$platform" != "Darwin" ]]; then
+    ######################
+    # global Linux only items go here
+    ######################
+
+    #disable alt+f1 shortcut for fedora setup
+    gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
+
+    fnmode=$(cat /sys/module/hid_apple/parameters/fnmode)
+
+    if [[ "$fnmode" != "0" ]]; then
+        echo "fixing apple keyboard with fnmode"
+        sudo su -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"
+    fi
+else 
+    ####################
+    # Global OSX items go here
+    ####################
+
+    # The new golang plugin of intellij will map the gopath to global libraries in the project automatically.
+    # This means that I can't use a single gopath and configure the projects nicely for IntelliSense while using
+    # the latest alpha plugin.  These aliases help setup the env prior to launching intellij.
+    alias ij="open -a /Applications/IntelliJ\ IDEA\ 14.app/"
+    alias oij="devOpenShift;ij"
+    alias kij="devKube;ij"
+fi
+
 
 setupAliases () {
     ###
@@ -26,7 +49,6 @@ setupAliases () {
     alias cb="cd ~/codebase"
     alias svns="svn status"
 
-    alias ij="open -a /Applications/Intellij\ Idea\ 13.app"
 }
 
 devTwoBook () {
@@ -80,23 +102,19 @@ gitSetup () {
     alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 }
 
-devGoLangTutorial () {
-    export GOROOT=/usr/local/go
-    export GOPATH=/Users/paul/codebase/Go
-    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-}
-
 devOpenShift () {
-    #disable alt+f1 shortcut for fedora setup
-    gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
+    OS_GOPATH="openshiftgo"
 
-    export OS_ROOT=/home/pweil/codebase/openshiftgo/src/github.com/openshift/origin
+    if [[ "$platform" == "Darwin" ]]; then
+        OS_GOPATH="openshift"
+    fi
+
+    export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/local/go/bin
-    export GOPATH=${OS_ROOT}/Godeps/_workspace:/home/pweil/codebase/openshiftgo
+    export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
     export PATH=$PATH:~/bin:$GOPATH/bin:/usr/local/go/bin:${OS_BIN}:/opt/etcd
 
     alias cbo='cd ${OS_ROOT}'
-    alias linkos="ln -s ${OS_ROOT}/_output/local/bin/linux/amd64/openshift ${OS_ROOT}/_output/local/bin/linux/amd64/osc"
     alias buildos="cbo; make clean && make; linkos"
     alias cleanos="cbo; rm -Rf openshift.local.*"
     alias oss="openshift start"
@@ -106,23 +124,31 @@ devOpenShift () {
 setupOSEnv() {
    sudo chmod a+r ${OS_ROOT}/openshift.local.certificates/admin/*
    export KUBECONFIG=${OS_ROOT}/openshift.local.certificates/admin/.kubeconfig
-   # required for installing routers
-   export OPENSHIFT_CA_DATA=$(<${OS_ROOT}/openshift.local.certificates/master/root.crt)
 }
 
 devKube() {
-    export KUBERNETES_PROVIDER=vagrant
-    export KUBERNETES_NUM_MINIONS=2
-    export KUBE_CODE_HOME=~/codebase/openshiftgo/src/github.com/GoogleCloudPlatform/kubernetes
-    alias  cbk="cd $KUBE_CODE_HOME"
-    alias kubecfg="$KUBE_CODE_HOME/cluster/kubecfg.sh"
+    KUBE_GOPATH="openshiftgo"
 
-    alias km1="cbk;vagrant ssh minion-1"
-    alias km2="cbk;vagrant ssh minion-2"
-    alias kmm="cbk;vagrant ssh master"
+    if [[ "$platform" == "Darwin" ]]; then
+        KUBE_GOPATH="kubernetes"
+        alias kubevm="cd /Users/pweil/IdeaProjects/kubernetes"
+    fi
+
+    export KUBE_ROOT=~/codebase/${KUBE_GOPATH}/src/github.com/GoogleCloudPlatform/kubernetes
+    export GOPATH=${KUBE_ROOT}/Godeps/_workspace:~/codebase/${KUBE_GOPATH}
+    alias cbk="cd $KUBE_ROOT"
+    alias kubecfg="$KUBE_ROOT/cluster/kubecfg.sh"
 
     echo "Warning: an alias to kubecfg has been created.  If you are trying to start a vagrant cluster this could"
     echo "cause an issue.  Unalias kubecfg before starting the cluster"
+}
+
+devRebase() {
+    export GOPATH=~/codebase/rebase
+    export PATH=${GOPATH}/bin:${PATH}
+    alias rebaseInit="cb;rm -Rf rebase;mkdir rebase;go get github.com/tools/godep; go get github.com/openshift/origin; go get github.com/GoogleCloudPlatform/kubernetes;cd ${GOPATH}/src/github.com/GoogleCloudPlatform/kubernetes; git checkout master; git pull; git checkout -b stable_proposed; echo 'Rebase initialized and stable_proposed created'"
+    alias cbk="cd ${GOPATH}/src/github.com/GoogleCloudPlatform/kubernetes"
+    alias cbo="cd ${GOPATH}/src/github.com/openshift/origin"
 }
 
 oskill() {
@@ -137,14 +163,7 @@ niceEtcd(){
     curl -L -s "${1}" | python -m json.tool
 }
 
-#########################
-# Other utility functions
-#########################
-fixAppleFn() {
-    sudo su -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"
-}
 
-#setupMacEnv
 setupAliases
 gitSetup
 
@@ -153,7 +172,7 @@ gitSetup
 ###
 #devTwoBook
 #devGoLangTutorial
-devOpenShift
+#devOpenShift
 
 
 
