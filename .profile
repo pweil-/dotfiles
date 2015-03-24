@@ -7,6 +7,11 @@ if [[ "$platform" != "Darwin" ]]; then
 
     #disable alt+f1 shortcut for fedora setup
     gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
+    #tweak fonts
+    gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"
+    gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
+    #adjust the mac monitor to be less bright (no gui controls)
+    xrandr --output DP-0 --brightness 0.9
 
     fnmode=$(cat /sys/module/hid_apple/parameters/fnmode)
 
@@ -26,6 +31,11 @@ else
     alias oij="devOpenShift;ij"
     alias kij="devKube;ij"
 fi
+
+###
+# Other global items that aren't os specific
+###
+export PATH=/usr/local/go/bin:$PATH
 
 
 setupAliases () {
@@ -112,7 +122,7 @@ devOpenShift () {
     export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/local/go/bin
     export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
-    export PATH=$PATH:~/bin:$GOPATH/bin:/usr/local/go/bin:${OS_BIN}:/opt/etcd
+    export PATH=$PATH:~/bin:$GOPATH/bin:${OS_BIN}:/opt/etcd
 
     alias cbo='cd ${OS_ROOT}'
     alias buildos="cbo; make clean && make; linkos"
