@@ -135,7 +135,7 @@ let mapleader = ","
 " Turn off auto working path feature (CtrlP)
 let g:ctrlp_working_path_mode = ''
 " show characters
-set list
+"set list
 
 " Added from the OpenShift vimrc
 "flag problematic whitespace (trailing and spaces before tabs)

@@ -113,12 +113,7 @@ gitSetup () {
 }
 
 devOpenShift () {
-    OS_GOPATH="openshiftgo"
-
-    if [[ "$platform" == "Darwin" ]]; then
-        OS_GOPATH="openshift"
-    fi
-
+    OS_GOPATH="openshift"
     export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/local/go/bin
     export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
@@ -127,30 +122,34 @@ devOpenShift () {
     alias cbo='cd ${OS_ROOT}'
     alias buildos="cbo; make clean && make; linkos"
     alias cleanos="cbo; rm -Rf openshift.local.*"
-    alias oss="openshift start"
+    alias oss="sudo ${OS_BIN}/openshift --loglevel=4 --master=http://192.168.1.139:8080 --listen=http://0.0.0.0:8080 start"
 
 }
 
 setupOSEnv() {
    sudo chmod a+r ${OS_ROOT}/openshift.local.certificates/admin/*
    export KUBECONFIG=${OS_ROOT}/openshift.local.certificates/admin/.kubeconfig
+   export OPENSHIFTCONFIG=$KUBECONFIG
 }
 
 devKube() {
-    KUBE_GOPATH="openshiftgo"
+    KUBE_GOPATH="kubernetes"
 
     if [[ "$platform" == "Darwin" ]]; then
-        KUBE_GOPATH="kubernetes"
         alias kubevm="cd /Users/pweil/IdeaProjects/kubernetes"
     fi
 
     export KUBE_ROOT=~/codebase/${KUBE_GOPATH}/src/github.com/GoogleCloudPlatform/kubernetes
     export GOPATH=${KUBE_ROOT}/Godeps/_workspace:~/codebase/${KUBE_GOPATH}
     alias cbk="cd $KUBE_ROOT"
-    alias kubecfg="$KUBE_ROOT/cluster/kubecfg.sh"
+    # add etcd to the path, required for local clusters
+    export PATH=/opt/etcd:$PATH
 
-    echo "Warning: an alias to kubecfg has been created.  If you are trying to start a vagrant cluster this could"
-    echo "cause an issue.  Unalias kubecfg before starting the cluster"
+    if [[ -d /opt/google-cloud-sdk ]]; then
+        source '/opt/google-cloud-sdk/path.bash.inc'
+        source '/opt/google-cloud-sdk/completion.bash.inc'
+        export KUBE_GCE_INSTANCE_PREFIX=pweil-e2e
+    fi
 }
 
 devRebase() {
@@ -167,6 +166,11 @@ oskill() {
 
 dockerClear() {
     docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
+}
+
+dockerClearImages() {
+    dockerClear
+    docker rmi $(docker images -q)
 }
 
 niceEtcd(){
