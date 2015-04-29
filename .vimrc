@@ -35,7 +35,6 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 " ---------------------------- End Vundle Configuration --------------------
 
-
 set nu
 syntax on
 
@@ -112,7 +111,7 @@ set expandtab
 
 if version > 703
    " Enable color line to prevent long lines
-   set colorcolumn=121
+   set colorcolumn=100
 
    " Enable undo history between sessions
    set undofile
@@ -199,6 +198,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType go setlocal omnifunc=go#complete#Complete
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -223,3 +223,26 @@ set completeopt+=menuone
 set completeopt-=preview
 "****************************** End Echodoc Config *****************
 
+"****************************** GoLang Config **********************
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+"****************************** End GoLang Config **********************
+
+"****************************** NERDTree Config **********************
+nmap <Leader>nt :NERDTreeToggle<CR>
+nmap <Leader>nf :NERDTreeFind<CR>

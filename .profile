@@ -36,6 +36,12 @@ fi
 # Other global items that aren't os specific
 ###
 export PATH=/usr/local/go/bin:$PATH
+# for vim-go tools we will add this directory to the path if it exists
+# if you are setting up vim for the first time for go then create this directory and
+# run GoInstallBinaries
+if [[ -d ~/codebase/vim-go-workspace/bin ]]; then
+    export PATH=~/codebase/vim-go-workspace/bin:$PATH
+fi
 
 
 setupAliases () {
