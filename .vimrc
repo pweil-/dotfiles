@@ -246,3 +246,4 @@ au FileType go nmap <Leader>e <Plug>(go-rename)
 "****************************** NERDTree Config **********************
 nmap <Leader>nt :NERDTreeToggle<CR>
 nmap <Leader>nf :NERDTreeFind<CR>
+let NERDTreeShowHidden=1

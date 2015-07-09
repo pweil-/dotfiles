@@ -1,3 +1,5 @@
+#!/bin/bash
+
 platform=$(uname)
 
 if [[ "$platform" != "Darwin" ]]; then
@@ -13,12 +15,14 @@ if [[ "$platform" != "Darwin" ]]; then
     #adjust the mac monitor to be less bright (no gui controls)
     xrandr --output DP-0 --brightness 0.9
 
-    fnmode=$(cat /sys/module/hid_apple/parameters/fnmode)
+    export JAVA_HOME=/etc/alternatives/java_sdk
 
-    if [[ "$fnmode" != "0" ]]; then
-        echo "fixing apple keyboard with fnmode"
-        sudo su -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"
-    fi
+    #fnmode=$(cat /sys/module/hid_apple/parameters/fnmode)
+
+    #if [[ "$fnmode" != "0" ]]; then
+    #    echo "fixing apple keyboard with fnmode"
+    #    sudo su -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"
+    #fi
 else 
     ####################
     # Global OSX items go here
@@ -128,7 +132,7 @@ devOpenShift () {
     alias cbo='cd ${OS_ROOT}'
     alias buildos="cbo; make clean && make; linkos"
     alias cleanos="cbo; rm -Rf openshift.local.*"
-    alias oss="sudo ${OS_BIN}/openshift --loglevel=4 --master=http://192.168.1.139:8080 --listen=http://0.0.0.0:8080 start"
+    alias oss="sudo ${OS_BIN}/openshift --loglevel=4 start"
 
 }
 
@@ -156,6 +160,15 @@ devKube() {
         source '/opt/google-cloud-sdk/completion.bash.inc'
         export KUBE_GCE_INSTANCE_PREFIX=pweil-e2e
     fi
+
+    alias luc="sudo PATH=$PATH -E hack/local-up-cluster.sh"
+    alias kc="$KUBE_ROOT/cluster/kubectl.sh"
+}
+
+setupKubeEnv() {
+    cluster/kubectl.sh config set-cluster local --server=http://127.0.0.1:8080 --insecure-skip-tls-verify=true
+    cluster/kubectl.sh config set-context local --cluster=local
+    cluster/kubectl.sh config use-context local
 }
 
 devRebase() {
@@ -195,4 +208,40 @@ gitSetup
 #devOpenShift
 
 
+git(){
+   GIT=~/gitbin/git
+   # Sanity check
+   if [ ! -f ${GIT} ]
+   then
+       echo "Error: git binary not found"
+       return 255
+   fi
 
+   # command to be executed
+   command=$1
+
+   # Remove command from $@ array
+   shift 1
+
+   # This the name of the push github account we'll allow
+   APPROVED_GH="pweil-"
+
+   case $command in
+   "push")
+       if [[ $($GIT remote show $1 | grep "Push  URL" | grep $APPROVED_GH) ]]
+       then
+           $GIT ${command} "$@"
+       else
+           echo "You are not allowed to push to ${1}, it does not contain the approved GH account ${APPROVED_GH}"
+           return 255
+       fi
+     ;;
+   *)
+     # Execute the git binary
+     $GIT ${command} "$@"
+     ;;
+   esac
+
+   # Return something
+   return $?
+}
