@@ -40,6 +40,7 @@ fi
 # Other global items that aren't os specific
 ###
 export PATH=/usr/local/go/bin:$PATH
+
 # for vim-go tools we will add this directory to the path if it exists
 # if you are setting up vim for the first time for go then create this directory and
 # run GoInstallBinaries
@@ -122,15 +123,21 @@ gitSetup () {
     alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 }
 
+devGoTools() {
+    export PATH=$PATH:~/codebase/gotools/bin
+}
+
 devOpenShift () {
     OS_GOPATH="openshift"
     export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/local/go/bin
     export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
-    export PATH=$PATH:~/bin:$GOPATH/bin:${OS_BIN}:/opt/etcd
+    export PATH=$PATH:~/bin:$GOPATH/bin:${OS_BIN}:/opt/etcd:~/codebase/gotools/bin
+    export OPENSHIFT_MEMORY=4096
 
     alias cbo='cd ${OS_ROOT}'
-    alias buildos="cbo; make clean && make; linkos"
+    alias buildos="cbo; make clean && make"
+    alias testos="cbo; hack/test-go.sh"
     alias cleanos="cbo; rm -Rf openshift.local.*"
     alias oss="sudo ${OS_BIN}/openshift --loglevel=4 start"
 
@@ -149,7 +156,7 @@ devKube() {
         alias kubevm="cd /Users/pweil/IdeaProjects/kubernetes"
     fi
 
-    export KUBE_ROOT=~/codebase/${KUBE_GOPATH}/src/github.com/GoogleCloudPlatform/kubernetes
+    export KUBE_ROOT=~/codebase/${KUBE_GOPATH}/src/k8s.io/kubernetes
     export GOPATH=${KUBE_ROOT}/Godeps/_workspace:~/codebase/${KUBE_GOPATH}
     alias cbk="cd $KUBE_ROOT"
     # add etcd to the path, required for local clusters
@@ -208,40 +215,3 @@ gitSetup
 #devOpenShift
 
 
-git(){
-   GIT=~/gitbin/git
-   # Sanity check
-   if [ ! -f ${GIT} ]
-   then
-       echo "Error: git binary not found"
-       return 255
-   fi
-
-   # command to be executed
-   command=$1
-
-   # Remove command from $@ array
-   shift 1
-
-   # This the name of the push github account we'll allow
-   APPROVED_GH="pweil-"
-
-   case $command in
-   "push")
-       if [[ $($GIT remote show $1 | grep "Push  URL" | grep $APPROVED_GH) ]]
-       then
-           $GIT ${command} "$@"
-       else
-           echo "You are not allowed to push to ${1}, it does not contain the approved GH account ${APPROVED_GH}"
-           return 255
-       fi
-     ;;
-   *)
-     # Execute the git binary
-     $GIT ${command} "$@"
-     ;;
-   esac
-
-   # Return something
-   return $?
-}
