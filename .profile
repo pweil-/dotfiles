@@ -130,7 +130,7 @@ devGoTools() {
 devOpenShift () {
     OS_GOPATH="openshift"
     export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
-    export OS_BIN=${OS_ROOT}/_output/local/go/bin
+    export OS_BIN=${OS_ROOT}/_output/local/bin/linux/amd64
     export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
     export PATH=$PATH:~/bin:$GOPATH/bin:${OS_BIN}:/opt/etcd:~/codebase/gotools/bin
     export OPENSHIFT_MEMORY=4096
@@ -144,9 +144,8 @@ devOpenShift () {
 }
 
 setupOSEnv() {
-   sudo chmod a+r ${OS_ROOT}/openshift.local.certificates/admin/*
-   export KUBECONFIG=${OS_ROOT}/openshift.local.certificates/admin/.kubeconfig
-   export OPENSHIFTCONFIG=$KUBECONFIG
+   sudo chmod -R a+r ${OS_ROOT}/openshift.local.config/*
+   export KUBECONFIG=${OS_ROOT}/openshift.local.config/master/admin.kubeconfig
 }
 
 devKube() {
