@@ -154,7 +154,7 @@ devKube() {
     KUBE_GOPATH="kubernetes"
 
     if [[ "$platform" == "Darwin" ]]; then
-        alias kubevm="cd /Users/pweil/IdeaProjects/kubernetes"
+        alias kubevm="cd ~/codebase/dotfiles/vagrantfiles/k8s" 
     fi
 
     export KUBE_ROOT=~/codebase/${KUBE_GOPATH}/src/k8s.io/kubernetes
