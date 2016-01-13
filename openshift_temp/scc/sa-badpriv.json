@@ -1,0 +1,28 @@
+{
+  "apiVersion": "v1beta2",
+  "desiredState": {
+    "manifest": {
+      "containers": [
+        {
+          "image": "openshift/hello-openshift",
+          "name": "badpriv",
+          "ports": [
+            {
+              "containerPort": 8080
+            }
+          ],
+          "securityContext": {
+            "privileged": true
+          }
+        }
+      ],
+      "id": "badpriv",
+      "version": "v1beta1"
+    }
+  },
+  "id": "hello-badpriv",
+  "kind": "Pod",
+  "labels": {
+    "name": "badpriv"
+  }
+}

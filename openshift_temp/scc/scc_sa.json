@@ -1,0 +1,19 @@
+{
+  "kind": "PodSecurityPolicy",
+  "apiVersion":"v1",
+
+  "metadata": {
+    "name": "scc-serviceaccounts",
+    "labels": {
+            "name": "scc-serviceaccounts"
+    }
+  },
+  "runAsUser": {
+    "type": "MustRunAsRange"
+  },
+  "seLinuxContext": {
+    "type": "MustRunAs"
+  },
+  "groups": ["system:serviceaccounts"]
+}
+

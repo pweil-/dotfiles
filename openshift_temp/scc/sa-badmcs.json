@@ -1,0 +1,30 @@
+{
+  "apiVersion": "v1beta2",
+  "desiredState": {
+    "manifest": {
+      "containers": [
+        {
+          "image": "openshift/hello-openshift",
+          "name": "badmcs",
+          "ports": [
+            {
+              "containerPort": 8080
+            }
+          ],
+          "securityContext": {
+            "seLinuxOptions": {
+              "level": "q0,q1"
+            }
+          }
+        }
+      ],
+      "id": "badmcs",
+      "version": "v1beta1"
+    }
+  },
+  "id": "hello-badmcs",
+  "kind": "Pod",
+  "labels": {
+    "name": "badmcs"
+  }
+}

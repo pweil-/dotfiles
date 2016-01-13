@@ -1,0 +1,28 @@
+{
+  "apiVersion": "v1beta2",
+  "desiredState": {
+    "manifest": {
+      "containers": [
+        {
+          "image": "openshift/hello-openshift",
+          "name": "uid-notinrange",
+          "ports": [
+            {
+              "containerPort": 8080
+            }
+          ],
+          "securityContext": {
+            "runAsUser": 1002
+          }
+        }
+      ],
+      "id": "uid-notinrange",
+      "version": "v1beta1"
+    }
+  },
+  "id": "uid-notinrange",
+  "kind": "Pod",
+  "labels": {
+    "name": "uid-notinrange"
+  }
+}

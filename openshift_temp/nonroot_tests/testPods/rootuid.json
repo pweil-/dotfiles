@@ -1,0 +1,26 @@
+{
+  "kind": "Pod",
+  "apiVersion":"v1",
+
+  "metadata": {
+    "name": "rootuid"
+  },
+
+  "spec": {
+      "containers": [{
+        "name": "hello-nginx-docker-pod",
+        "image": "pweil/non-root",
+        "ports": [
+          {
+            "containerPort": 80
+          },
+          {
+            "containerPort": 443
+          }
+        ],
+        "securityContext": {
+           "runAsUser": 0
+        }
+      }]
+  }
+}

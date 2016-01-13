@@ -1,0 +1,1 @@
+FROM openshift/hello-openshift

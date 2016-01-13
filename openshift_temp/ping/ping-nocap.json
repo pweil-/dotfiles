@@ -1,0 +1,22 @@
+{
+  "kind": "Pod",
+  "apiVersion":"v1",
+
+  "metadata": {
+  	"name": "ping-nocap"
+  },
+
+  "spec": {
+      "containers": [{
+        "name": "ping",
+        "image": "pweil/ping",
+        "imagePullPolicy": "IfNotPresent",
+        "securityContext": {
+           "capabilities": {
+              "drop": ["NET_RAW"]
+           }
+        }
+      }]
+  }
+}
+

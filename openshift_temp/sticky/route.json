@@ -1,0 +1,15 @@
+{
+    "metadata": {
+        "name": "route-unsecure"
+    },
+    "id": "route-unsecure",
+    "apiVersion": "v1beta3",
+    "kind": "Route",
+    "spec": {
+      "host": "www.example.com",
+      "to": {
+         "name": "hello-nginx"
+      }
+    }
+}
+

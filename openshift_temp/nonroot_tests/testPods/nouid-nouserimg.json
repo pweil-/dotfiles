@@ -1,0 +1,23 @@
+{
+  "kind": "Pod",
+  "apiVersion":"v1",
+
+  "metadata": {
+    "name": "nouid-nouserimg"
+  },
+
+  "spec": {
+      "containers": [{
+        "name": "hello-nginx-docker-pod",
+        "image": "pweil/nouser",
+        "ports": [
+          {
+            "containerPort": 80
+          },
+          {
+            "containerPort": 443
+          }
+        ]
+      }]
+  }
+}

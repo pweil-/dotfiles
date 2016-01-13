@@ -1,0 +1,95 @@
+{
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "router",
+    "creationTimestamp": null,
+    "labels": {
+      "router": "router"
+    }
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "router",
+        "image": "openshift/origin-haproxy-router",
+        "ports": [
+          {
+            "hostPort": 80,
+            "containerPort": 80
+          },
+          {
+            "hostPort": 443,
+            "containerPort": 443
+          },
+          {
+            "name": "stats",
+            "hostPort": 1936,
+            "containerPort": 1936,
+            "protocol": "TCP"
+          },
+          {
+            "name": "custom",
+            "hostPort": 1083,
+            "containerPort": 1083
+          }
+        ],
+        "env": [
+          {
+            "name": "DEFAULT_CERTIFICATE"
+          },
+          {
+            "name": "OPENSHIFT_CA_DATA",
+            "value": "-----BEGIN CERTIFICATE-----\nMIIC5jCCAdCgAwIBAgIBATALBgkqhkiG9w0BAQswJjEkMCIGA1UEAwwbb3BlbnNo\naWZ0LXNpZ25lckAxNDM2OTcxNTI3MB4XDTE1MDcxNTE0NDUyNloXDTE2MDcxNDE0\nNDUyN1owJjEkMCIGA1UEAwwbb3BlbnNoaWZ0LXNpZ25lckAxNDM2OTcxNTI3MIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsRvQ8Dt2xswlFWIh29sxSXMF\nhWheQmHyNkz9oI7v81vFGzbaXZnwacTDUsYEAcTeeHPZ+xzPZJIWXtRuM9/7IwuU\nXT043U8f4qRmbYfL2ZgjJ2LynSL5TCpxsw7Ct9Mbe5arfgyiXd27lvnUNAtoUGuI\nHatuhhsm+GSsQmL5Cp7+5dBkSTDQENNYJD+SMGZH0gpCqYttQz2z7411stx16wjL\nYNpyxMffim4fMRZOk9M02XfLz9CP8M6Vt+y6PpswMa7jPeof9V7eoXgC0gF2nk3G\nxQt7896ClYnGL8aKH2NktANuZ4+ibMmRb9OLlqTDPYyizjQGW2HJXT1GGNOJzwID\nAQABoyMwITAOBgNVHQ8BAf8EBAMCAKQwDwYDVR0TAQH/BAUwAwEB/zALBgkqhkiG\n9w0BAQsDggEBABEupS5Piuer35BYanKmmfWMDqY+DSIM9by2CGFf0yKIw9CCmDqC\nQiKBc/nLQVjDG+GkiCMghPYRW99Wm3AbiOYACZ3TIK41i7Ueq7FUSJAz0WGAV9x5\n55orcqKGEE8pPkwLmHR8bUpVkg50tlDWcynnODa1Ut1uQ1IP263ysZ5zRHOOH4jo\nyRKnK6S8xHB8MxQwarNGLK48BidHmKZQakWwS2NRRqYOmHI/Zvqenz5QZiHIFt+8\nFRA5VDpR3TCPd06DkswcUanm0Sn0BAP0AzpwH0I1Jo01rl40x4UvlxinK8jKLjIY\nlKFd681SUrjOi4T0PciOBiBCxQviG8wqoA8=\n-----END CERTIFICATE-----\n"
+          },
+          {
+            "name": "OPENSHIFT_CERT_DATA",
+            "value": "-----BEGIN CERTIFICATE-----\nMIIDCTCCAfOgAwIBAgIBAzALBgkqhkiG9w0BAQswJjEkMCIGA1UEAwwbb3BlbnNo\naWZ0LXNpZ25lckAxNDM2OTcxNTI3MB4XDTE1MDcxNTE0NDUyOVoXDTE2MDcxNDE0\nNDUzMFowNzEeMBwGA1UEChMVc3lzdGVtOmNsdXN0ZXItYWRtaW5zMRUwEwYDVQQD\nEwxzeXN0ZW06YWRtaW4wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDk\nsAXqzs1iOoqV7FrRZTTV90eMx1pqJ7bXLfVoEsHjqVd3Yyuq+5bS7opaF51YkF2f\nlD9bO0ipALoJzhsoMr8VkYsu9ku9ncPQ3VfGMamSVczFkVB56YeKzWttNdwEw+MN\nFhi6F/mgowaRloUap06c/xEh9m8pYz3uZXJnPX1+xmXRdmHD38BBdBwFhgtvQfui\nlcRzkcRRuURnGjAko9N9UK2hhRPb9AQJ/6XJVvx05vaaKbLdFRk0QEmu/bSbBll+\nac68fu9XeK25XDcKHo71GfqiZvsLPAVDzhFEikGDed0P5fI776zNJKi9/vosj00e\nQxFf1Uk+T8zhGZTrnuJnAgMBAAGjNTAzMA4GA1UdDwEB/wQEAwIAoDATBgNVHSUE\nDDAKBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMAsGCSqGSIb3DQEBCwOCAQEAHi4G\nwUvBkoc9jGHVkvbmnlmN3JsLca8TVnWRdeZtmC/XizIoBF9yAFqZr2ugChSoYf4+\nrVzmztgBD5W9aUU6e5QUHxBTfGsEaMMDvPW4ZgU/JsFJ3RHRbLMukuC2+fAJDaBk\njHPVXYoLuPVHzUMdgsXmqwfFyGhJMCBVn2VB4ritlEKK29CEa1sbMsF2bQ+KRXOc\nNhSJMvJoQVCGnyLhlf+Mh5U/QlObSb81zIzZoDonU6WULawbYexln4KEm4vNsnqj\nlOIKuMItwxMP3qh4/XLIYHw1xG0Fgd60mfzREY9BbGCmp2gIxuRn1XpsiIocIdLn\nh8ccJP0z4byG0NoVKg==\n-----END CERTIFICATE-----\n"
+          },
+          {
+            "name": "OPENSHIFT_INSECURE",
+            "value": "false"
+          },
+          {
+            "name": "OPENSHIFT_KEY_DATA",
+            "value": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEA5LAF6s7NYjqKlexa0WU01fdHjMdaaie21y31aBLB46lXd2Mr\nqvuW0u6KWhedWJBdn5Q/WztIqQC6Cc4bKDK/FZGLLvZLvZ3D0N1XxjGpklXMxZFQ\neemHis1rbTXcBMPjDRYYuhf5oKMGkZaFGqdOnP8RIfZvKWM97mVyZz19fsZl0XZh\nw9/AQXQcBYYLb0H7opXEc5HEUblEZxowJKPTfVCtoYUT2/QECf+lyVb8dOb2mimy\n3RUZNEBJrv20mwZZfmnOvH7vV3ituVw3Ch6O9Rn6omb7CzwFQ84RRIpBg3ndD+Xy\nO++szSSovf76LI9NHkMRX9VJPk/M4RmU657iZwIDAQABAoIBAQCe/U2v2ITrxN1y\nq/bb22vnUdqZokNWyDOS2C3kZB4OZD4eD4FdhzptfVAMoJxQ5VVhy5RcnhO/A3VT\nucohoV495YkJZkx0EIoB3NDYRtConyQVOxjjGRuVwYjtTWOgoHtrLrCUOHThXFYF\nw8rYI/dAqQhFP2o7MPbulfL6mcJ07rOIdV4Qzv7H3pXZZchh2+FvAa9rz+/8xFEW\nwYz3UN8Gi/bsOAlywkVnnfFJ+0EoXOUq0acMZjr4gqIOEWgJtYLgcDFsvQXikn55\ntNnXxrrNk1WayoT1KvjB9+h+FxDGtrwKBF8E92EGLAdtq8MiHW7HdFMAotAbOtey\nrpi0at3ZAoGBAO91zi/c+gLM++lBBu4Ai4xzd5zyOnC8gCrltoucItI6BwV7XDg/\nmFtubiewD+5UMk+q92LPjYB1c9wF/T1ekc/8m1VHlPS5BilQh+jSg0N+zfO9MY00\n+Vvyuq8h7TSzo0iHDsKpb3BdKLizIPF79+RNM5s7+Lm0lTmpsWVDEmnrAoGBAPR7\nu++LnJ3KERZjXUaBo+Qs0EF3SZWkcp40eQMEKKrf5oUMddtgPZwFzYFbor6GkgtP\n6RBX4+QnZvKgORVwMZrrW2gKGKvuy/WYTfqNhd+ZqN4ZGIGFSR4ZedpIgfxsdZIq\nNbw+PJO4HYciPVZvWzwh8fHHCD24RJXCOsNmNO51AoGBAOmLbhNEZBpDLhXqtAWA\nRpovK6PIo7K8RgyQih9ToqqCqcJw9Bpv+/qAk7LlhkQdngwRZMHcR9fXta4LsVcf\nWvsNFbpw3BhqNFYrEsLCPf+gNuHXzfI4jlNdQzH31s+lvETKZFz6v5NJaKPrIOAk\n1jq2CPUH4qfMNhZNKJToe5cNAoGALlBOTte0yJNh30rdfaDLaksu/GfbkbSAXgX0\nsqSUC6K0qZmtrewyX58dyhaQ4uTdP7VYolbz/eGU9/twNOZ3DzDstO3MtK1dB95d\nT0yGAtC6E7DPWqHkMwaCdd5seWQWdaT3XvyvPxCOz22mDvyzXNXVXobkwcRpgbE0\nrpVrC40CgYEArO/4iHf3JVRx9rHe7GCElsZZtghdChlFWN5QbVmpAzNxNlBXLlj/\nbW9YcE4QvltikXGJddpZLdOccA6dpBkzwQ/lvAFA2CefbA8eXOoNG0dgSnqSCf6B\n+gN/LAnSTDqHY6IERCwTcXDYvC71ew6dp1a/hyeggJa3t0/EuNZLpdI=\n-----END RSA PRIVATE KEY-----\n"
+          },
+          {
+            "name": "OPENSHIFT_MASTER",
+            "value": "https://10.0.2.15:8443"
+          },
+          {
+            "name": "ROUTER_SERVICE_NAME",
+            "value": "router"
+          },
+          {
+            "name": "ROUTER_SERVICE_NAMESPACE",
+            "value": "default"
+          },
+          {
+            "name": "STATS_PASSWORD",
+            "value": "IhSuHpNFVq"
+          },
+          {
+            "name": "STATS_PORT",
+            "value": "1936"
+          },
+          {
+            "name": "STATS_USERNAME",
+            "value": "admin"
+          }
+        ],
+        "command": ["/usr/bin/openshift-router", "--template=/var/lib/haproxy/conf/haproxy-config.template", "--reload=/var/lib/haproxy/reload-haproxy", "--loglevel=4"],
+        "resources": {},
+        "livenessProbe": {
+          "tcpSocket": {
+            "port": 80
+          },
+          "initialDelaySeconds": 10
+        },
+        "imagePullPolicy": "IfNotPresent"
+      }
+    ]
+  },
+  "status": {}
+}

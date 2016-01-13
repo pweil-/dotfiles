@@ -1,0 +1,24 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1beta3",
+    "metadata": {
+        "name": "router",
+        "labels": {
+            "router": "router"
+        }
+    },
+    "spec": {
+        "ports": [
+            {
+                "name": "",
+                "protocol": "TCP",
+                "port": 80,
+                "targetPort": 80
+            }
+        ],
+        "selector": {
+            "router": "router"
+        }
+    }
+}
+

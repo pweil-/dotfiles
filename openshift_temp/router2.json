@@ -1,0 +1,59 @@
+{
+    "kind": "Pod",
+    "apiVersion": "v1beta1",
+    "id": "router1",
+    "desiredState": {
+        "manifest": {
+            "version": "v1beta2",
+            "containers": [
+                {
+                    "name": "router",
+                    "image": "openshift/origin-haproxy-router",
+                    "ports": [
+                        {
+                            "hostPort": 80,
+                            "containerPort": 80
+                        },
+                        {
+                            "hostPort": 443,
+                            "containerPort": 443
+                        },
+                        {
+                            "hostPort": 1936,
+                            "containerPort": 1936
+                        }
+                    ],
+                    "env": [
+                        {
+                            "name": "DEFAULT_CERTIFICATE",
+                            "value": "-----BEGIN PRIVATE KEY-----\nMIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAMm81OyV62iOxJZH\nqOsotWAnpVMnL1D96FB88NCZ1Ut0S5VAeio89mLlEz+yjCOMMpdvfyZaP2iI3C6O\nN2OlPwAlT82BZvCaXwbxvJvK7FQ38tpMyzFBU74JGgIh9ORnJ+J9FyewBTJlTQyd\nvSJsUopoAXscDbslK7PbHDaNG321AgMBAAECgYEArTYy44e9fiLG6/lPMcncIVko\n/AJy/+liJGmCIrlSh9ysYNPhkI6TRkpFgrV82bCwZ5HV7Eokk06fLmHxcN8a/TC1\n8QPQTpsNeLcKZa5reNfp0Hh/Fqw+/gFpLci+qn30kjevNHCSCalQKAyVQw7TOUek\npshRA4c6ojbVdoWm6ikCQQDoJ8TwN/UMHqzQtAf9S1v8+J6WG+r6lmM4kvWS9cKQ\n1wOYFFgrzPxqhOR2pluM1RaJZ/JbJCVNolDslZ9mrHMDAkEA3nVEVJQIuY2YLDYK\nrYNiEpWGH6u4eL14zZCiSrc8RqgAdaauzCwUss9IxOn+Rr57i424xguSHDlkBFZl\nYfiS5wJAWe0dwhdK2pj/RBCYj6sjRMhhVbAWw16BrKZwba644TYIdF5dEQpkNDap\n8LPb/p+EDVGwdVF5Cat4QUxr5G+kVQJBAMgI5Le1IZ9Qjpx6v+FEugSCBcgmzstr\nfNxECVtsJzxVx4wDpTydCsO7FvFSg76zfD6B4rvbHbhZdvFbivCs59MCQQCSC7k1\nY+QydYPU19kUIS0kj23kkl3dg1jKs7OHnsUKMGqKM0uLclC2pk4nlXenkNjdfCae\npYTptRezoVsjKraW\n-----END PRIVATE KEY-----\n-----BEGIN CERTIFICATE-----\nMIIDGjCCAgKgAwIBAgIBBDANBgkqhkiG9w0BAQUFADCBoTELMAkGA1UEBhMCVVMx\nCzAJBgNVBAgMAlNDMRUwEwYDVQQHDAxEZWZhdWx0IENpdHkxHDAaBgNVBAoME0Rl\nZmF1bHQgQ29tcGFueSBMdGQxEDAOBgNVBAsMB1Rlc3QgQ0ExGjAYBgNVBAMMEXd3\ndy5leGFtcGxlY2EuY29tMSIwIAYJKoZIhvcNAQkBFhNleGFtcGxlQGV4YW1wbGUu\nY29tMB4XDTE1MDQxNjIwNDYyNFoXDTE2MDQxNTIwNDYyNFowdDEfMB0GA1UEAwwW\nKi5yb3V0ZXIuZGVmYXVsdC5sb2NhbDELMAkGA1UECAwCU0MxCzAJBgNVBAYTAlVT\nMSIwIAYJKoZIhvcNAQkBFhNleGFtcGxlQGV4YW1wbGUuY29tMRMwEQYDVQQKDApE\nTyBOT1QgVVNFMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJvNTsletojsSW\nR6jrKLVgJ6VTJy9Q/ehQfPDQmdVLdEuVQHoqPPZi5RM/sowjjDKXb38mWj9oiNwu\njjdjpT8AJU/NgWbwml8G8bybyuxUN/LaTMsxQVO+CRoCIfTkZyfifRcnsAUyZU0M\nnb0ibFKKaAF7HA27JSuz2xw2jRt9tQIDAQABow0wCzAJBgNVHRMEAjAAMA0GCSqG\nSIb3DQEBBQUAA4IBAQBuWhysctwWNgk9EhgOux0Txnhmo5lC9ACF9RQWqoG8KC37\nN0rTPL4q/rkn9Cw776hp2Bq2GRlkT7EssNDrdH0tTPf8W+jDjAU7joF4f8iXC6Hh\nzLEgek2diOrmNBSpMowuHr1+5JmHsyyq2jeJ+g2MfO+lOaYmrzAp7P2WlgJo7IMk\nvZulWJvbqm1slRKosZc4TQiih2SThBrKvloJRbHJcPmj6XbD2511R4PEORsO0ELw\nI0IINEhcFvPzNZluHOUT+/3iWTJBu/zFGuWYLLDxPAjOrkVw/Go/H7AJPBCGB7pA\nfO51fmV+dGFRx4fp+SUS3yMnQNwwiaKNMVd5xqGB\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIEFzCCAv+gAwIBAgIJALK1iUpF2VQLMA0GCSqGSIb3DQEBBQUAMIGhMQswCQYD\nVQQGEwJVUzELMAkGA1UECAwCU0MxFTATBgNVBAcMDERlZmF1bHQgQ2l0eTEcMBoG\nA1UECgwTRGVmYXVsdCBDb21wYW55IEx0ZDEQMA4GA1UECwwHVGVzdCBDQTEaMBgG\nA1UEAwwRd3d3LmV4YW1wbGVjYS5jb20xIjAgBgkqhkiG9w0BCQEWE2V4YW1wbGVA\nZXhhbXBsZS5jb20wHhcNMTUwMTEyMTQxNTAxWhcNMjUwMTA5MTQxNTAxWjCBoTEL\nMAkGA1UEBhMCVVMxCzAJBgNVBAgMAlNDMRUwEwYDVQQHDAxEZWZhdWx0IENpdHkx\nHDAaBgNVBAoME0RlZmF1bHQgQ29tcGFueSBMdGQxEDAOBgNVBAsMB1Rlc3QgQ0Ex\nGjAYBgNVBAMMEXd3dy5leGFtcGxlY2EuY29tMSIwIAYJKoZIhvcNAQkBFhNleGFt\ncGxlQGV4YW1wbGUuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\nw2rK1J2NMtQj0KDug7g7HRKl5jbf0QMkMKyTU1fBtZ0cCzvsF4CqV11LK4BSVWaK\nrzkaXe99IVJnH8KdOlDl5Dh/+cJ3xdkClSyeUT4zgb6CCBqg78ePp+nN11JKuJlV\nIG1qdJpB1J5O/kCLsGcTf7RS74MtqMFo96446Zvt7YaBhWPz6gDaO/TUzfrNcGLA\nEfHVXkvVWqb3gqXUztZyVex/gtP9FXQ7gxTvJml7UkmT0VAFjtZnCqmFxpLZFZ15\n+qP9O7Q2MpsGUO/4vDAuYrKBeg1ZdPSi8gwqUP2qWsGd9MIWRv3thI2903BczDc7\nr8WaIbm37vYZAS9G56E4+wIDAQABo1AwTjAdBgNVHQ4EFgQUugLrSJshOBk5TSsU\nANs4+SmJUGwwHwYDVR0jBBgwFoAUugLrSJshOBk5TSsUANs4+SmJUGwwDAYDVR0T\nBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOCAQEAaMJ33zAMV4korHo5aPfayV3uHoYZ\n1ChzP3eSsF+FjoscpoNSKs91ZXZF6LquzoNezbfiihK4PYqgwVD2+O0/Ty7UjN4S\nqzFKVR4OS/6lCJ8YncxoFpTntbvjgojf1DEataKFUN196PAANc3yz8cWHF4uvjPv\nWkgFqbIjb+7D1YgglNyovXkRDlRZl0LD1OQ0ZWhd4Ge1qx8mmmanoBeYZ9+DgpFC\nj9tQAbS867yeOryNe7sEOIpXAAqK/DTu0hB6+ySsDfMo4piXCc2aA/eI2DCuw08e\nw17Dz9WnupZjVdwTKzDhFgJZMLDqn37HQnT6EemLFqbcR0VPEnfyhDtZIQ==\n-----END CERTIFICATE-----\n"
+                        },
+                        {
+                            "name": "OPENSHIFT_CA_DATA",
+                            "value": "-----BEGIN CERTIFICATE-----\nMIIC5jCCAdCgAwIBAgIBATALBgkqhkiG9w0BAQswJjEkMCIGA1UEAwwbb3BlbnNo\naWZ0LXNpZ25lckAxNDMwMDY1MTk5MB4XDTE1MDQyNjE2MTk1OVoXDTE2MDQyNTE2\nMjAwMFowJjEkMCIGA1UEAwwbb3BlbnNoaWZ0LXNpZ25lckAxNDMwMDY1MTk5MIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuQaq+D8qwERAoO+o9lqJ8YJY\nRfKdzv2fyEFs6bsD8rby1qKJzOYSzQo+H3WmIpB1VW1ikDasEgPXN5HEFdnZN1Ok\nQURK7BkFd+uZhsRYcDaXnaKtyr346uGdYvNUwloXjGxnERm+HaUYtONtIULBe0lh\nsPr9nTWlCrFulekeXgvQnG+HMdSqYmWxQ9QaziVc2FkQxPd6xVN/vrJez/zbdILH\nQlJCO1g2UEf5psS1QFmazAD2U4ENlaG38iFdCyWi6mJYUO1q78f5osHh0MfGpmKC\n0vMlF2VvJkO+bhlbhGXPWADtyjjoSlUpMrYVe6eCc8+2EuzOUNQGbWW12qMb2QID\nAQABoyMwITAOBgNVHQ8BAf8EBAMCAKQwDwYDVR0TAQH/BAUwAwEB/zALBgkqhkiG\n9w0BAQsDggEBAFbygUy8T8BNXHzo3gCA+8rUcqG+i1+cFyp0g3ytvw5aEyKy+web\nB5icJ7PEz0AmJ3ZzmjfPl/JN0qcwu+LpvtJcAYapDAPTbxfQiOSVIxotjFskZlrf\nxqK9SdCn27o85avYjQtSr1nhSJ5cgBswxa2NLE8U4pfdkg8CGXwAmg78WH2CUSIO\ngqtuCymHvNromhU+BNj8uJnHUVA/p+j2grTzZ9nZ2T9G1Q3O+Q2OAF8/wdzvCM5L\nnv+JNBm7+8r01d/zzY4m8QyI6yGDya8TDIQ8v1pDWXB320Owcy8x4IsJ5ITuYSn1\nb6dHRBQuoi0TRXe5HM0bQ69rSbV6tk2fmSY=\n-----END CERTIFICATE-----\n"
+                        },
+                        {
+                            "name": "OPENSHIFT_CERT_DATA",
+                            "value": "-----BEGIN CERTIFICATE-----\nMIIDCTCCAfOgAwIBAgIBBzALBgkqhkiG9w0BAQswJjEkMCIGA1UEAwwbb3BlbnNo\naWZ0LXNpZ25lckAxNDMwMDY1MTk5MB4XDTE1MDQyNjE2MjAwNVoXDTE2MDQyNTE2\nMjAwNlowNzEeMBwGA1UEChMVc3lzdGVtOmNsdXN0ZXItYWRtaW5zMRUwEwYDVQQD\nEwxzeXN0ZW06YWRtaW4wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCt\nbyAu1H7+tLxrRUQJh8Ew9+J0yVGM25dgozl4YH+W09Rkr1S7AOr+y4wEmEjEOyKT\nJ1t81uILPEQ/1DA0Q6xyznQnUfG5akSbcl8VF+IhbRu8wPhEWlcJj9XR0FRcZ8bY\n/6CpP4siWL25sLtBmvtLURqza9y9KoaPKsgF/BOeknsTnhNAMrBXFIALXj5nWYUN\nyCp3+oCrlTHvAx17Kic/0JLZMrHsxtABZJZ45oT69aLXqbcIlJ4aJOIuSYgAdhk5\nyW3n6Svwh62qPeC7kLpr+Z/QtJJzGPpFHHnCHJ7l1Zgk0htmCE3aAuuXlSPCR0fF\njWUH37Jf6nsjEsBm5DtHAgMBAAGjNTAzMA4GA1UdDwEB/wQEAwIAoDATBgNVHSUE\nDDAKBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMAsGCSqGSIb3DQEBCwOCAQEAQWSZ\ngvjsBVI/2bPVgJMk0MFK8+c31z74mvjxEp00O0wzHn08dGXjJlDKXbtUxSgWS3xh\nzZn8eXj39TWbXuBpFYOFsNqT+iGuEN1dgFuz0q2SwR8RrOOnLe6dRyS/95bo/tuf\nKtNaPub1KxDDaUkx/Y56zCFb1oSKLloB+9IWxvDQCx9naiyAXS3Qna81bx7XteLi\n3fmrlEZGkIioVr/PgFr5c3nMmieNoQw6EjgUWf3cuDbhC2uU1ksa82B4XAo0F1oM\ne+OeO5Q5EGF7Xs5kbdyXCdB281HIZe1T5aJ87rGd9b0ddCM5xqXeixbXSsMyV6Mt\netmA+GM20Xi51C20gQ==\n-----END CERTIFICATE-----\n"
+                        },
+                        {
+                            "name": "OPENSHIFT_INSECURE",
+                            "value": "false"
+                        },
+                        {
+                            "name": "OPENSHIFT_KEY_DATA",
+                            "value": "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEArW8gLtR+/rS8a0VECYfBMPfidMlRjNuXYKM5eGB/ltPUZK9U\nuwDq/suMBJhIxDsikydbfNbiCzxEP9QwNEOscs50J1HxuWpEm3JfFRfiIW0bvMD4\nRFpXCY/V0dBUXGfG2P+gqT+LIli9ubC7QZr7S1Eas2vcvSqGjyrIBfwTnpJ7E54T\nQDKwVxSAC14+Z1mFDcgqd/qAq5Ux7wMdeyonP9CS2TKx7MbQAWSWeOaE+vWi16m3\nCJSeGiTiLkmIAHYZOclt5+kr8Ietqj3gu5C6a/mf0LSScxj6RRx5whye5dWYJNIb\nZghN2gLrl5UjwkdHxY1lB9+yX+p7IxLAZuQ7RwIDAQABAoIBAH3QyuEOKJ6wEKwl\nEIl1YTIb8b1VOoLb3oIthwiLwKNzQnZUNzx+GvwCP64pp0gruhZUi+sRm+QYsU44\nqUuQ+G5E1UCdEqW2sNSv8MhFjjc/hsq0lqZHfzKhlLTj0/9BDaDoOO3u+glNpT0r\nN30NaFWoHZ2hlv3n9ruvhnHI/5adbBnTn215Foobtp2KeWujQXf+gmKjGydA1XSH\naE5YIYLJhchIsqGzoEOpmkFIRd2rO6v87SfrkfjT8DrHTa4GIkbR3jFLbCJ4E4a6\nq+Fn3JJPij0Cw+SbmT0G/+sDT7T1aI45TTqFVvzuKw6ZgcOrFYuaoNIzJGMxoFeE\nsfxDxJECgYEA5l7waeO18x0JdYUfjgPtkjnn4/6ATKAFFdMisoB0XqjjbnoeAzcS\nIweTd8SPmo5RTWjvXgQrcUvXxU2P3wt0JET6bDxxOPzNpK8vyvAZ3QhvcB1MRPWy\nmUZ/H9/swrgn/esq/9hdrlK5Hmw8RHmxidei3b+EbNHw3dNE3l7AhQ8CgYEAwLqa\nWHvs11BmDDa64o+7uIb5LVEfXcH6IPVd4UOgQFaNo0QTDogu13bTkgQp0aOuye1Z\nU8YBOzaBJNUY1fAwfoyYJIzkOGG0vJXFB2xBVizbzDkGt9bMOrpu/tGytRRTqoVf\nLB4Ly9j/rVebA8CiqI3evqHB2byo0jLQN5aBFkkCgYBJu7lXKvrhhTmx05n16mvv\nkXkXEC4gWFdIVPuWBmc4pPWmNo/El6vGanZYryEHZuW+0QdMICmHaa72B4005oWV\n1j4Qxoe2pbNsMmYpng+pHzoLuFTg/YLcbCPkH9e3uxmRu+NXX/kcAn4drqbbg9e/\nNrV6JAJOkiN13Fj+k3UrIQKBgGH3OHeb3qL/8i9pLov1peVBbq2zW69L57oTHzpf\nJrktheektc8gODc75oWFakBu5G0uIcbskjmoFfNEAtDUu8HH85o4p9VlDPsDYljI\nlVmZicyAfEK8g6milMMgkqdrArBeBSemyjY/Qo+5RUmeBNCK9NuP27qzJFlcjOyE\nq29JAoGBAIhip0ZoQMPbgA+d+1ppXm3PR4lbjIvyI5e+5qibdwdOd2AqIVLNmGzB\nYrqQ3t9iv6HYP7zeCr4csLVXU0dkQPUyVYaP45zQhW6R4RiYsO0mjwhPw3tuZrmU\n5AVQEPVcs71t6fmjh7jwbGP98sAV1mSt9fPMXn5pjlfpyZ5w8fmU\n-----END RSA PRIVATE KEY-----\n"
+                        },
+                        {
+                            "name": "OPENSHIFT_MASTER",
+                            "value": "https://10.0.2.15:8443"
+                        }
+                    ]
+                }
+            ],
+            "restartPolicy": {
+                "always": {}
+            }
+        }
+    }
+}

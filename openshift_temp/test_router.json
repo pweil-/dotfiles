@@ -1,0 +1,153 @@
+{
+  "metadata": {},
+  "items": [
+    {
+      "name": "router",
+      "creationTimestamp": null,
+      "labels": {
+        "router": "router"
+      },
+      "Triggers": [
+        {
+          "Type": "ConfigChange",
+          "ImageChangeParams": null
+        }
+      ],
+      "Template": {
+        "Strategy": {
+          "Type": "",
+          "CustomParams": null,
+          "RecreateParams": null,
+          "RollingParams": null,
+          "Resources": {}
+        },
+        "ControllerTemplate": {
+          "replicas": 1,
+          "selector": {
+            "router": "router"
+          },
+          "template": {
+            "metadata": {
+              "creationTimestamp": null,
+              "labels": {
+                "router": "router"
+              }
+            },
+            "spec": {
+              "volumes": null,
+              "containers": [
+                {
+                  "name": "router",
+                  "image": "openshift/origin-haproxy-router:v1.0.1",
+                  "ports": [
+                    {
+                      "hostPort": 80,
+                      "containerPort": 80
+                    },
+                    {
+                      "hostPort": 443,
+                      "containerPort": 443
+                    },
+                    {
+                      "name": "stats",
+                      "hostPort": 1936,
+                      "containerPort": 1936,
+                      "protocol": "TCP"
+                    },
+                    {
+                      "name": "custom",
+                      "hostPort": 1083,
+                      "containerPort": 1083
+                    }
+                  ],
+                  "env": [
+                    {
+                      "name": "DEFAULT_CERTIFICATE"
+                    },
+                    {
+                      "name": "OPENSHIFT_CA_DATA",
+                      "value": "-----BEGIN CERTIFICATE-----\nMIIC5jCCAdCgAwIBAgIBATALBgkqhkiG9w0BAQswJjEkMCIGA1UEAwwbb3BlbnNo\naWZ0LXNpZ25lckAxNDM2NDQ3NTc5MB4XDTE1MDcwOTEzMTI1OVoXDTE2MDcwODEz\nMTMwMFowJjEkMCIGA1UEAwwbb3BlbnNoaWZ0LXNpZ25lckAxNDM2NDQ3NTc5MIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuz9/AfkWaR+CzMlSmvIzytf8\npEnsScayv/tenKfsOaZsAUx/2jKPPn3uvkiLf5ey8+m6kwTYlQCJLYJbzcOKQOLy\nppMfRHtb/W3/pE2pEWiYraa5nHkDyWvHXNLFiX7AGemyhteS9J0xg766Xv+xPDrJ\nl9XqZGF4BFxp0G6ZoLH4VQEivAZjAQYjyEqQ4hvw0aBE3WQbYLF3ddZhoRtjOUja\nmrqNLQPbwNWpp0sVuoeAZf+qCE5KOi5kxVrYBZK+40lYYjvTDeR07eVVsncgScn+\ndlEIdKUgiGBgLY0+XfaRoX9jrhkuZihMKfRqiwT0/rJhL3lHhfL7q7wLVCucTQID\nAQABoyMwITAOBgNVHQ8BAf8EBAMCAKQwDwYDVR0TAQH/BAUwAwEB/zALBgkqhkiG\n9w0BAQsDggEBAJTac6O48Zbl0NCrUqPBCsHIikSZczqSD1KZDZUJfGV7RLZXMH/N\ny7PW7grKiIfVXxM1aNTIkKt0H5N8jsFG9GNLsI7QDoCz7pX4/T0mRIeeFEExSovD\nmho7Pk8learyFPjORW3uSb7v3VeLS8UB27sbvMeDyAoHf1im+YWYIgdHx+Rovjiq\n7ppmBN6TrMu6RCM13z2dK9HxBTSxjVxqJt0WmkkEf6NhDV5SLlu0XWqgjQn/QyQA\nKQ6qo0SAM/Pa/Npt6zPpGHL3f6X7EVDdA/tYQXEuWcGJRo4IclrejRs7lowz2RVk\neVbqhuHW5T8sLPydohDW2nAfINr5AOWu4bE=\n-----END CERTIFICATE-----\n"
+                    },
+                    {
+                      "name": "OPENSHIFT_CERT_DATA",
+                      "value": "-----BEGIN CERTIFICATE-----\nMIIDCTCCAfOgAwIBAgIBAzALBgkqhkiG9w0BAQswJjEkMCIGA1UEAwwbb3BlbnNo\naWZ0LXNpZ25lckAxNDM2NDQ3NTc5MB4XDTE1MDcwOTEzMTMwMloXDTE2MDcwODEz\nMTMwM1owNzEeMBwGA1UEChMVc3lzdGVtOmNsdXN0ZXItYWRtaW5zMRUwEwYDVQQD\nEwxzeXN0ZW06YWRtaW4wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCl\n5J8rC2AQ4H6Gn1e2DnFUNGCW+yktBgtIHBxDWOs7ldE3DW2UG2EfTp/PDGI83V6K\nI3H0cy/pHcKHM5Hl6JOHAUv5TYzl5dFE04dtCiBtkvi6b3SAgsEZubEi85gtSgnt\nqrV41WD9Gaf25XlmqN+mMV9eqINJQtrYb3yxgN+w3kWI1BdafagQ7L5GWTylP3PF\ngdhmy08yT6b61c9Mh3+t32sMNZ+5znhF9daF96nV32xW8d47nOKjRFP1EnwYd0Cc\n1WmsYo7elYWBex3L5ozH1i9P3T2v72AjNYuL7VQmgl3trdrLJ8yrBFV8Xb4H5JzI\nzAY03OMHBNxXvQoH/hEtAgMBAAGjNTAzMA4GA1UdDwEB/wQEAwIAoDATBgNVHSUE\nDDAKBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMAsGCSqGSIb3DQEBCwOCAQEAYsht\nnuVFbI0bZPsBPQE6ojqvY8cQdmq9TDb79CCI05/b5uR6H1J+2Q6uhs2a7QO1fiyU\nRN9etVEKJc/81Rno1IUPvqSaMWvO+leWxAinJ6eg7qLOxPf/WVq32CdkAljn2NQQ\nQcykNRWy9BmSuMsM7oIFugQ2LOvq//K3+c6eGhGrmwQbW69xHIZMDB1WvZXULmK5\nryp0WssZ05p2CxLNM51yM5832RZLJLWuuY+u4WXD0kexjdLXMsILh8jBfXAERn9v\nusPyUY20E62jIw8WO4PlFbAnCrjjF58b1Yt7Lm7s9Qz7rLIaaBvLiS6r3S14CG9C\ne5tzWTR4taCjsoyD0A==\n-----END CERTIFICATE-----\n"
+                    },
+                    {
+                      "name": "OPENSHIFT_INSECURE",
+                      "value": "false"
+                    },
+                    {
+                      "name": "OPENSHIFT_KEY_DATA",
+                      "value": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEApeSfKwtgEOB+hp9Xtg5xVDRglvspLQYLSBwcQ1jrO5XRNw1t\nlBthH06fzwxiPN1eiiNx9HMv6R3ChzOR5eiThwFL+U2M5eXRRNOHbQogbZL4um90\ngILBGbmxIvOYLUoJ7aq1eNVg/Rmn9uV5ZqjfpjFfXqiDSULa2G98sYDfsN5FiNQX\nWn2oEOy+Rlk8pT9zxYHYZstPMk+m+tXPTId/rd9rDDWfuc54RfXWhfep1d9sVvHe\nO5zio0RT9RJ8GHdAnNVprGKO3pWFgXsdy+aMx9YvT909r+9gIzWLi+1UJoJd7a3a\nyyfMqwRVfF2+B+ScyMwGNNzjBwTcV70KB/4RLQIDAQABAoIBAHL/vFMDjLHGXg+G\nsC/1bRx5PqgLLi0W7oUrb3BEWLUykxi9x0OPg1FHmMLYC9Wzg5DxJ1LU8taAGdTN\nrAsbogFJpdgJqW3JVbuHg27UQUyUQLZFAxb/DUt/DUt0X/6tP5qw5yH/kT+DJIuj\n4feHg5payYj9+hy0Kq81AdSuyOJ65KOYnDmzRf09+d1o0Vwf4jKgbgpwMbeThBAT\n8AE1pNpwU3UCdl9FEGrKrt1COEy5YVngkeMcZVQSDc4nbj6kcDJlVwD5TLzKNo+E\ntpxtfxSUK1EmJPeUuaG8biznQIIGhQFsBA5mgsVIL0Y3WvcZlMfli3sBF/xlaQi6\n9AwGH8ECgYEA22oFEevYW91hudeBu8aBd4PVAm3v8vM/PJAAXYJvpuJP1zv4QkRY\ndiWREUSFVkxrTEBhEgndMHBhx1QjXR/cC1CWV7LsKGapGUUWdyIi5eygaO31i3+O\nNZoh6uPBhHAOlG13lmK5nK0VuccAwHYmzR6V0gZenpBqeScyuXmBOnECgYEAwY37\n9fCoSTHtDwTRJJN5ozu0SAvPuS3AmV6oHeJ4x0OzsqPjQUNhiGP74lOXLmFuOxVm\nTliJul3k5li+aRY4NY7Xqs2PI6HWGdUWLx4XRtkeO5qW+aWdo49E43ZvV/PEBFRn\n77OUg+Wj4tX1K/bz6af0t+Oc+lD3GKrBkPmhCH0CgYAVV9fMaXuvW/aQpFT7VhDr\n9kf3J4iKwnypQHy4m+KOgj8v+aZpk8pjG75jxp2Nyns5fJ20qn74okXwpM+X1GyM\nMTeeqknsmCfkzGKmDg0E/qKP8m3LNwo3Tpn0Blmhr2DLsWZLm6jgg7m0S5ZYImYd\n19bNCk+T7wpcZKK7hgU7EQKBgQCP1PAAojacNeKgv4afdIv2lj5xL33McUhncGTj\n2FDCWvglbw5IiEbpMMuUM2PsDnD4rP1aiQbIHFAmMJpGw0E/44c2oQyWgQP2LFgQ\n6X6Ion2J82Xv3HeZfLTHh1JUfIwUX5jhEoTxwuuXfEF1y00UPEBpilYz2YjVpsay\n8h4NjQKBgQC1EN62onThWYeXpAIPQyk5EUgOTfLGUAX/0MENY/MebLskHzPSW1Ou\nrbGgi/Epevfgfhvmfkg+FPZmFYt3BTmzM8QC7O9HG1tmQlY/Rn0qIgjal2xbyOoY\nZbWSPYxoyP1Fvil7Hd5opvJBXBAKMtgpIk1AYPmOjQ/Ubg27n5Nmsg==\n-----END RSA PRIVATE KEY-----\n"
+                    },
+                    {
+                      "name": "OPENSHIFT_MASTER",
+                      "value": "https://10.0.2.15:8443"
+                    },
+                    {
+                      "name": "ROUTER_SERVICE_NAME",
+                      "value": "router"
+                    },
+                    {
+                      "name": "ROUTER_SERVICE_NAMESPACE",
+                      "value": "default"
+                    },
+                    {
+                      "name": "STATS_PASSWORD",
+                      "value": "IhSuHpNFVq"
+                    },
+                    {
+                      "name": "STATS_PORT",
+                      "value": "1936"
+                    },
+                    {
+                      "name": "STATS_USERNAME",
+                      "value": "admin"
+                    }
+                  ],
+                  "resources": {},
+                  "livenessProbe": {
+                    "tcpSocket": {
+                      "port": 80
+                    },
+                    "initialDelaySeconds": 10
+                  },
+                  "imagePullPolicy": "IfNotPresent"
+                }
+              ],
+              "serviceAccountName": ""
+            }
+          }
+        }
+      },
+      "LatestVersion": 0,
+      "Details": null
+    },
+    {
+      "metadata": {
+        "name": "router",
+        "creationTimestamp": null,
+        "labels": {
+          "router": "router"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "",
+            "protocol": "",
+            "port": 80,
+            "targetPort": 80,
+            "nodePort": 0
+          }
+        ],
+        "selector": {
+          "router": "router"
+        }
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    }
+  ]
+}

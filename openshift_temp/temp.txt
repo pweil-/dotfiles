@@ -1,0 +1,10 @@
+
+www.example2.com
+www.example2.com/reallylongurl
+www.example2.com/reallylongurl/sub
+www.example.com
+www.example.com/1
+www.example.com/1/A
+www.example.com/1/b
+www.example.com/2
+www.google.com

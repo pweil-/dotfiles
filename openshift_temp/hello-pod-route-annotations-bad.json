@@ -1,0 +1,17 @@
+ {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "route2",
+        "annotations": {
+	  "openshift.io/route.haproxy.timeout-server": "foo"
+        }
+      },
+      "spec": {
+        "host": "www.example2.com",
+        "to": {
+          "kind": "Service",
+          "name": "hello-pod"
+        }
+      }
+}

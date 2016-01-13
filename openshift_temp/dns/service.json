@@ -1,0 +1,25 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1beta3",
+    "metadata": {
+        "name": "hello",
+        "labels": {
+            "router": "hello"
+        }
+    },
+    "spec": {
+        "ports": [
+            {
+                "name": "",
+                "protocol": "TCP",
+                "port": 80,
+                "targetPort": 80
+            }
+        ],
+        "selector": {
+            "name": "hello-openshift"
+        },
+	"portalIP": "None"
+    }
+}
+

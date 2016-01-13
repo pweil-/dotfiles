@@ -1,0 +1,14 @@
+ {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "route1"
+      },
+      "spec": {
+        "host": "www.example.com",
+        "to": {
+          "kind": "Service",
+          "name": "hello-pod"
+        }
+      }
+}

@@ -1,0 +1,14 @@
+# Copy of pod.yaml without file extension for test
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pid
+  labels:
+    name: pid
+spec:
+  hostPID: true
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80

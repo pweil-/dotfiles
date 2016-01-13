@@ -1,0 +1,23 @@
+kind: Template
+apiVersion: v1
+metadata:
+ name: "jdoe-glusterfs-webapp-template"
+ creationTimestamp: null
+ annotations:
+  description: "nginx persistent glusterfs application template using existing PVC"
+  tags: "nginx glusterfs"
+objects:
+ - apiVersion: v1
+   id: "jdoe-webapp"
+   kind: Pod
+   metadata:
+     name: "jdoe-webapp"
+   spec:
+     securityContext:
+       supplementalGroups: [1000030003]
+     containers:
+      - name: "jdoe-webapp"
+        image: "nginx"
+        securityContext:
+          runAsUser: 0
+          privileged: false

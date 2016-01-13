@@ -1,0 +1,64 @@
+{
+    "kind": "Pod",
+    "apiVersion": "v1beta1",
+    "id": "router1",
+    "desiredState": {
+        "manifest": {
+            "version": "v1beta2",
+            "containers": [
+                {
+                    "name": "router1",
+                    "image": "openshift/origin-haproxy-router",
+                    "ports": [
+                        {
+                            "containerPort": 80,
+                            "hostPort": 80
+                        },
+                        {
+                            "containerPort": 443,
+                            "hostPort": 443
+                        }
+                    ],
+                    "env": [
+                        {
+                            "name": "DEFAULT_CERTIFICATE"
+                        },
+                        {
+                            "name": "OPENSHIFT_CA_DATA",
+                            "value": "-----BEGIN CERTIFICATE-----\nMIIC5jCCAdCgAwIBAgIBATALBgkqhkiG9w0BAQswJjEkMCIGA1UEAwwbb3BlbnNo\naWZ0LXNpZ25lckAxNDMzNDQ4MTQyMB4XDTE1MDYwNDIwMDIyMloXDTE2MDYwMzIw\nMDIyM1owJjEkMCIGA1UEAwwbb3BlbnNoaWZ0LXNpZ25lckAxNDMzNDQ4MTQyMIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuUclaAdlwaM7bhvJclMFN7+Y\n7A2n3ni6aM6yNPjRRnc2wgpDYZBAtP3x3y4cOAgFzc+8nKbpCpKFR/B9ANiavQey\nkzyWkD+q4d8gIZ0R4JlANO+/cRtZv0zjmT5PoEwUyq2oRPNunR8XRD+s6LM3DifJ\nsrlMYA+xrl6ovKL+FZxgYQqG9TTUtMmO3DYMdaXYwFFLxmRmeJQlGiT9m560r7mh\nbtgMAWEbJPfEZ2EiFV3q/kJ/l2H+9rRopU1aTqIFSX7b/b8gOeR9XEDRtMh/VgF/\nD7X668TwhIZoedvTHBUFr6olpsuPuJ5GSzngsQEbFTnl2Xp+jrmLwNgIoJCrBwID\nAQABoyMwITAOBgNVHQ8BAf8EBAMCAKQwDwYDVR0TAQH/BAUwAwEB/zALBgkqhkiG\n9w0BAQsDggEBAHCCzCoHu2RT3D2oI7w4Mfa6/y0GMuw+EL83MKFnAPxX+ZvT4+C2\nzEy96Gn3aFDSuH+Bt/aZlEKMM87GyIn1eUIQyjxWBS5FFvwgTwF9JJnnCy/uVptF\nqZmdmpHCXzrLCDywc9tTSKFVpQgS6AWWN+J7SGSYxeA8lmTk5rHHa3W7aSReLj7v\naVCpNd/5U/IzTND3tzEKkdJbTtbcP06nzgbMAbsBNUczZ/VSK5Lqm0MVWWsvu5lN\nobzkBUFNYBeA3d/9DaVGggPVstL3+YrQi847CdBEurNo2K/oSxArayTDUF3ZNfFu\nNH21lo+rrpx7HMUlnGI6ll1Vz66LtwASFmk=\n-----END CERTIFICATE-----\n"
+                        },
+                        {
+                            "name": "OPENSHIFT_CERT_DATA",
+                            "value": "-----BEGIN CERTIFICATE-----\nMIIC9DCCAd6gAwIBAgIBBTALBgkqhkiG9w0BAQswJjEkMCIGA1UEAwwbb3BlbnNo\naWZ0LXNpZ25lckAxNDMzNDQ4MTQyMB4XDTE1MDYwNDIwMDIyNloXDTE2MDYwMzIw\nMDIyN1owIjEgMB4GA1UEAxMXc3lzdGVtOm9wZW5zaGlmdC1jbGllbnQwggEiMA0G\nCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDG+fmvyu6sFknmqrZhGav9oWi3ntXB\n3p2vDz5Npf96bqKI3p/S8TRnrKvwAM/aSJMvJckc6VAE4jC8jlRTFph79kMKxRTw\nJHUIeVFGWCq8uJ8uicfvQuznP3nZM2IdlRugQgFVqhybFohwjKntvsaoGc0w8zjq\nQS3/02zvOShSIJ/F07fo9GKBxFBWj92CBnQFTZeohAJujpUiIszKtt6ibL2EDHMP\nuPzN5y5gvqftXvlruTWuHoXn+Z1BsTyH6ys9QXwFrtwTNpsqwcCwTHsk3UJEDufT\nN0n+Hd8q5QdJUd4AA7SzM3+TEFN8tbWqWYs2ZqvJhR5kXubPrJOaLhbrAgMBAAGj\nNTAzMA4GA1UdDwEB/wQEAwIAoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB\nAf8EAjAAMAsGCSqGSIb3DQEBCwOCAQEAmmuUn1UGEZAJf2Xe6vq+3CezsepcucEB\n8H4TdibLf2UEii+8srRD19Bdbo3dtmtS5FEoyVdTCzCk0PZf+UaCrksVN1Itgb0Y\nCYw5sn9BhD9aMbA0Cts1eN9rbubymX1aoPIeH8D3TIWsbBlOuKai48s9x2V9Sf6/\ninOHYgLCCvKKDf5JqdrJTSTPi4UusLgLi9R5KIbpIejO2BK1de19HBZrB2yCmktK\nzBeeTiL+12z/VLUhqzXnybs8kd8QMotA+MLvbMlhjTcqyS3g8dg0GUiHPtLPT7pz\nmAKgcknh9lm5MeHzWpc285g8+ndgvMjLScWVDI3J6IVo2wWI4iiRqA==\n-----END CERTIFICATE-----\n"
+                        },
+                        {
+                            "name": "OPENSHIFT_INSECURE",
+                            "value": "false"
+                        },
+                        {
+                            "name": "OPENSHIFT_KEY_DATA",
+                            "value": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEAxvn5r8rurBZJ5qq2YRmr/aFot57Vwd6drw8+TaX/em6iiN6f\n0vE0Z6yr8ADP2kiTLyXJHOlQBOIwvI5UUxaYe/ZDCsUU8CR1CHlRRlgqvLifLonH\n70Ls5z952TNiHZUboEIBVaocmxaIcIyp7b7GqBnNMPM46kEt/9Ns7zkoUiCfxdO3\n6PRigcRQVo/dggZ0BU2XqIQCbo6VIiLMyrbeomy9hAxzD7j8zecuYL6n7V75a7k1\nrh6F5/mdQbE8h+srPUF8Ba7cEzabKsHAsEx7JN1CRA7n0zdJ/h3fKuUHSVHeAAO0\nszN/kxBTfLW1qlmLNmaryYUeZF7mz6yTmi4W6wIDAQABAoIBADt4k4xbVyLQNp5e\n/8vd5G4WRDo9mx4q725XXAPRTZ7GWoYWJCbkOQmTroA5feZ8MqGw5X9irKwI/xAc\nak+7PTAv1rHtXei4vNIfkI854uwtMkayn7N/iVdEvaKRnQ3Cd1Na5xM3mP0xqu4Y\n3OFWWAH+VDoBOE2r1ZfVFYYay1ZgKvZxN+MVdz37ax1Xc+qlxdLw+c807SenPE/j\nN317M7eeBXXTUSSC2iBxwvCNWk5NxWSBr+Yr99PsS12WJkdHuoNC1GhQ13weG1Wp\nidHuOB2QXFmdE/A2s5bGGGAQFH8SLb7x0La282Wia9i5/9g3Yd1aAbucFwDq+2mz\npuKopOECgYEA4Ox8aS1uVr+RaOtt62L+EM0W6FTrQgQ2nvL3eIcV2di4EFYVKiGq\nMNDRHo5qfBe1NGGFQ1K2u6zOe7G6uLFo3Wop/pc3aoO351SbFAoFEJ8QRJL8bZK+\nSXKX1Fla7OU6vX8xjJ2VIPx80ZrUak62zxtOGRE0o9SfLxGmUXsbf+8CgYEA4ne8\n2ePCV9Qlt0LzTGBAlD75F8X+vTgMUUMXySVuFdh6N4GZTfNj3oD7df4iDXdayIM8\naQcIQQF0A7AKie+F/gLNkyM5SflwfYYajY084beChg5riX/0YNHdxiaWiaW3FWfj\n/MrQlHpgDCp38u3CffBjLynjZR1kswdG0AXhnMUCgYEAkb9MIs9ol1fNPsKH2Kat\n4W80L9qPE5ktV7QzPeuy8hXnt9ZAIqvr33QAfh9kywKFzep/cw+PD2+74RVa3EFB\npXAcxDdyllfB/Gmrj8GqZInd/cGNRud23Jsf3V8Fd0pW1OIt1mNqdhSGQUBl8nkN\nJokYA1BN3vdxKwvxzQzL1gsCgYEA0m4wLMZVbwbRhNfQ+sb1OsrI6i4v5eKOj3Oo\nRl9hSys7ZRgnOydNRRLUlW7udVTSJj7Lg0vlf4G6KzMIl+LYvo4cNvwj33jH7dsO\nETmLuLCrt6Tuh3U9vjlDuTth5cT1ug4u6lYKOez8ElHj4vbKIfucLdbeVLZbO38n\nbWQJn4ECgYEA0+2RjXEwMLZbzsvx9G0OB3Eim8AuIwAFOXbagpng1tgJUdEBWidw\nbGwI+bgxEIIMghvY84Ov6Hc6x4CY+mS19ErYM5jl+KA/Jj3FEMWq/I2e/dbtuq1b\nRifmje/CkrmSIhrdfF5MHLe9piEzncZzKac01Fa/TtHVvXCVx87KJIY=\n-----END RSA PRIVATE KEY-----\n"
+                        },
+                        {
+                            "name": "OPENSHIFT_MASTER",
+                            "value": "https://10.0.2.15:8443"
+                        },
+                        {
+                            "name": "ROUTER_SERVICE_NAME",
+                            "value": "router"
+                        },
+                        {
+                            "name": "ROUTER_SERVICE_NAMESPACE",
+                            "value": "default"
+                        }
+                    ],
+                    "command": ["--loglevel=4"],
+                    "imagePullPolicy": "PullIfNotPresent"
+                }
+            ],
+            "restartPolicy": {
+                "always": {}
+            }
+        }
+    }
+}
