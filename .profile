@@ -2,6 +2,10 @@
 
 platform=$(uname)
 
+if [[ -f ~/git-completion.bash ]]; then
+    source ~/git-completion.bash
+fi
+
 if [[ "$platform" != "Darwin" ]]; then
     ######################
     # global Linux only items go here
@@ -136,6 +140,7 @@ devOpenShift () {
     export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
     export PATH=$PATH:~/bin:$GOPATH/bin:${OS_BIN}:/opt/etcd:~/codebase/gotools/bin
     export OPENSHIFT_MEMORY=4096
+    export OPENSHIFT_NUM_CPUS=8
 
     alias cbo='cd ${OS_ROOT}'
     alias buildos="cbo; make clean && make"
@@ -215,5 +220,4 @@ gitSetup
 #devGoLangTutorial
 #devOpenShift
 devGoTools
-
 
