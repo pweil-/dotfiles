@@ -1,0 +1,8 @@
+# modified the master-config.yaml but is this really necessary?
+# not sure
+
+openshift start --master-config=./config/master/master-config.yaml --node-config=./config/node-localhost.localdomain/node-config.yaml --loglevel=4
+
+oc describe ds atomic-registry-daemonset
+
+oc create -f atomic-registry-ds.json 

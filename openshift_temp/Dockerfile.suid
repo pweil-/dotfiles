@@ -1,0 +1,6 @@
+FROM fedora:latest
+ADD setuid-test /tmp/setuid-test
+RUN chmod +s /tmp/setuid-test
+RUN yum install -y libcap-ng-utils
+
+ENTRYPOINT /tmp/setuid-test

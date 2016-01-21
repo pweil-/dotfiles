@@ -1,0 +1,33 @@
+{
+      "kind": "DaemonSet",
+      "apiVersion": "extensions/v1beta1",
+      "metadata": {
+        "name": "hello-daemonset"
+      },
+      "spec": {
+        "selector": {
+          "name": "hello-daemonset"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "hello-daemonset"
+            }
+          },
+          "spec": {
+            "serviceAccountName": "default",
+            "containers": [
+              {
+                "name": "registry",
+                "image": "openshift/hello-openshift",
+                "ports": [
+		  {
+		    "containerPort": 80 
+ 		  }
+		]
+              }
+            ]
+          }
+        }
+      }
+    }

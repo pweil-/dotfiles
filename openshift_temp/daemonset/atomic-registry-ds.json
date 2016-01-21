@@ -1,0 +1,66 @@
+{
+      "kind": "DaemonSet",
+      "apiVersion": "extensions/v1beta1",
+      "metadata": {
+        "name": "atomic-registry-daemonset"
+      },
+      "spec": {
+        "selector": {
+          "atomic-registry": "true"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "atomic-registry": "true"
+            }
+          },
+          "spec": {
+            "serviceAccountName": "default",
+            "containers": [
+              {
+                "name": "registry",
+                "image": "docker-registry",
+                "ports": [
+		  {
+		    "containerPort": 5000
+ 		  }
+		],
+                "env": [
+                  {
+                    "name": "OPENSHIFT_MASTER",
+                    "value": "https://10.0.2.15:8443"
+                  },
+                  {
+                    "name": "OPENSHIFT_CA_DATA",
+                    "value": "-----BEGIN CERTIFICATE-----\nMIIC6jCCAdKgAwIBAgIBATANBgkqhkiG9w0BAQsFADAmMSQwIgYDVQQDDBtvcGVu\nc2hpZnQtc2lnbmVyQDE0NTMzMTcxNTgwHhcNMTYwMTIwMTkxMjM3WhcNMjEwMTE4\nMTkxMjM4WjAmMSQwIgYDVQQDDBtvcGVuc2hpZnQtc2lnbmVyQDE0NTMzMTcxNTgw\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCy3UXPQrrpObqo+p2cY2Bh\nAyZE9QyVmL5D/Bn9saSGLpncXFpMocbBCmvuqtTy+0lnWWzq9dJ3lNp6RTw7Hklf\n9aN1dhAlwlt0RKllyky8lzvA1392qVzCdXtBZPiAUga9JhbZ8BlqSu1pBgD3e2uF\nuRp9UzGJvO9sPUvRYdkcCzM7eB7phJnPUoaVZyF4f9Z9Kfnwjj1DLpbYD2nQA12L\norrA7WiB2ejxRQj6B5PfyQ1MjqWy04JNtV3fst7wL1VsJwYu5f5PEIIYbvGtCF0f\neOVhdM0TwQAZ6eobI1R8AETRbxKJ/dXcxdTSa5AjS9jDhq/O8kz7iFeMQCQ3jMWZ\nAgMBAAGjIzAhMA4GA1UdDwEB/wQEAwICpDAPBgNVHRMBAf8EBTADAQH/MA0GCSqG\nSIb3DQEBCwUAA4IBAQAy0k2ah6PSHEAWWLqRMYKSsiI/VL/pkSZ3BxWulLPh3y7S\nZW+kY6jhU6N75lXLKomQ5EgESgmdCrics8N5Sa2NElATaonlLeStFp0ry2x2ydJh\nrjFB170VYrhMVoyNYV+xdYMY76Ruz+g9I2DqyIOIeeNr3MXNqxwJj5tGQzHLOFHh\nUY3MNbqiiNEwpyL3+11smNnjvpZ4NTxX7nwZLlrm96UsEVDaEieg7dYSAOGlUinC\ntggZuu+AAW93qKoCFFHzhNtJIMwXqXlM+rosuJjImv+3uYnOgIqB1tSfgDB5OT6Q\nYUqTNilBX481W0guiLiWi7B70249rQjYYzJ7E0oI\n-----END CERTIFICATE-----\n"
+                  },
+                  {
+                    "name": "OPENSHIFT_KEY_DATA",
+                    "value": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAvak8+obyKal3nakAcqWrebWYfXHn7YMINIEIlRnPuRNroJBD\n/1vJtAXGzJ7BOzpSsl1ez5jDnGnzvOlODVapGUxQ9H/Y9betodWEBxaTuVcA4bgc\nsRtP1h8t+9SKOLw+PixAJnPLLOM9DQvMnFOl1dPrRiCY3Q4yWibsesMMZJ4bgznI\n8Q5rwx7K4Ga/qW7VRhl/pHxp91z4Lfun4WkGbTI8CeXdlmKxbjIt3F6ocyK9yVTy\ntlabm90hetU9enoFvOUyWDfG5TcG3Eo/sMMwQl0iBRepgzyYa7AbbR1Y4rXoxrMd\nTVF1c086VeMJG+PyfmhlKFGUBabzXqtD3D1FKQIDAQABAoIBAHrOzxFZuAyKE04f\nVI7n/3S7xZXU39zHb9SviKMjJ4IrtREu2RjMknrjEqsEURLM3Sdpli7OODtbz9uP\nJl80siITbIglEJNq8B9OZkNAtz7Xu1ZtJQb5LGT1o4zhPu8l1RflB1Tevby/F5UP\nAtpmv4cJxdqO2OyqeKgvdAi5q5iqOjz2lkL49Yov9brgScc+84KQxI2B9A1PhZ5U\nd45rZqiLnGHVS/q/xGG3CWaWe6BrsrHaam4o5JW2OnuZJnf5+I15TAgVyBZtxMvh\nY8hGjGELLkGvM5sR1jBHrSV0N+Odj5nLyOetaxPvkNv/wi0dRWkVSnPqbMTpgGfj\nszks+FECgYEA6hAETy1qMAzRC1sfafi12scYb5F4P4cQCyjSc4fFmxU92PH2O+xH\n4Q97+nw5EtVMPnNFPzHZl7RiiVFz2cMvcSTi/zygM0DJ5E357uJ6+vvF2n7UoIOd\nz1y19FenGaHnlZLnECClt0K59Dzbhd+YkM8Z4UZINe5FXGZf+ftYxHcCgYEAz2/f\nuH521zzxTgrHwMi6XIdsi49q871HepUWJ3igzoUjJXSimJ2CmrHklbKHZVy87Klz\nEZlEzIJUx+FzIxZ7uyIrHaXAjJhNNw6NzVVA9wu3HJdWYUc05LMBNtu7zpz5vYyT\npG1sSY8iaHZQX50b8zOMp2VNDKGDrZiLNywOy18CgYEApkemqBEdZPFV+PlNQd18\nY+YZB/mSMZ9j2GmxyH1l9pyKiXqrcTqUfeCgNPzXFvgM6Di/svtZF5sAfYkuAj/V\njk2kLasGLCMUympS6lBfCbqffm+n4jhefhfg86rpfR42BV6NZDmtQJnYvRgW4+5K\n1mUqf42MczPIdrIL8O2MzFUCgYBw7xd9+lv5EtTNCFF4Q9AyUAhocsxnpsUjl8dX\n9fSWeyWHXtim/hn83pz0Yx4TsUmqDxb2nds2/D3sFHH6yGLUnuWaXoNWCBUBxIqv\nH5se5OHsTvhYPcwuNsaSd07oTc4pxD8dZfVult7EwKVBaOeuoIITILOyDL0D5ejl\nQLdNQQKBgQDNm0+IE2+Eyl0qYB7JqgLgGt4XIxVjoPLdTWok4cfh/Y2kl41DJxPN\nu+pQdR/gni1u70Psvt0KQSWnHM1XTsr+TEesw8BQul+V/7jZ36OQJ9Jtd4xkW6t8\nz5xMvywX+e6M/vTvTDsBQSnGSw9KbMHDIy+vF4G/Bn7Ma8OpVuTpHQ==\n-----END RSA PRIVATE KEY-----\n"
+                  },
+                  {
+                    "name": "OPENSHIFT_CERT_DATA",
+                    "value": "-----BEGIN CERTIFICATE-----\nMIIDDTCCAfWgAwIBAgIBCDANBgkqhkiG9w0BAQsFADAmMSQwIgYDVQQDDBtvcGVu\nc2hpZnQtc2lnbmVyQDE0NTMzMTcxNTgwHhcNMTYwMTIwMTkxMjM4WhcNMTgwMTE5\nMTkxMjM5WjA3MR4wHAYDVQQKExVzeXN0ZW06Y2x1c3Rlci1hZG1pbnMxFTATBgNV\nBAMTDHN5c3RlbTphZG1pbjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAL2pPPqG8impd52pAHKlq3m1mH1x5+2DCDSBCJUZz7kTa6CQQ/9bybQFxsyewTs6\nUrJdXs+Yw5xp87zpTg1WqRlMUPR/2PW3raHVhAcWk7lXAOG4HLEbT9YfLfvUiji8\nPj4sQCZzyyzjPQ0LzJxTpdXT60YgmN0OMlom7HrDDGSeG4M5yPEOa8MeyuBmv6lu\n1UYZf6R8afdc+C37p+FpBm0yPAnl3ZZisW4yLdxeqHMivclU8rZWm5vdIXrVPXp6\nBbzlMlg3xuU3BtxKP7DDMEJdIgUXqYM8mGuwG20dWOK16MazHU1RdXNPOlXjCRvj\n8n5oZShRlAWm816rQ9w9RSkCAwEAAaM1MDMwDgYDVR0PAQH/BAQDAgWgMBMGA1Ud\nJQQMMAoGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEB\nAFPhCPUoirtw7qz6qBXpjHqkKqtheDEyR8/ONKiv1qmGt2CXP9PsTb3thxDfKgiE\nbyGrRryKqKNfI9xGA1IeIVgZlmB0azDmzizwZFNo5v0L/JPpscaQx7Sy6UMZg7l/\nnigXu6ZaVVvwGBy03ItyLpqSplQIY98tGeiO+ls4IE2jcPtlAP6hq6DrF6Y0bTUY\n+vDWJ/SCaNybyVsqG5PP8pOido65jI3nHO8fYsOVXxHu/jc5mKyVpiww7QqJC8NL\nnCAsjiGa0O63aOCYtJjJZo8EBP6HbtxnTywyMZ5EvQhmJYqSzxz4UJH8KIVB/4zc\nAX2SQ0O4krMyuHoWfgsaOXw=\n-----END CERTIFICATE-----\n"
+                  },
+                  {
+                    "name": "OPENSHIFT_INSECURE",
+                    "value": "false"
+                  }
+                ],
+                "securityContext": {
+                  "privileged": false
+                },
+                "livenessProbe": {
+                  "initialDelaySeconds": 3,
+                  "timeoutSeconds": 5,
+                  "httpGet": {
+                    "path": "/",
+                    "port": 5000
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
