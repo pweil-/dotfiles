@@ -146,7 +146,7 @@ devOpenShift () {
     alias buildos="cbo; make clean && make"
     alias testos="cbo; hack/test-go.sh"
     alias cleanos="cbo; rm -Rf openshift.local.*"
-    alias oss="sudo ${OS_BIN}/openshift --loglevel=4 start"
+    alias oss="sudo ${OS_BIN}/openshift --loglevel=4 start --latest-images"
 
 }
 
@@ -166,7 +166,7 @@ devKube() {
     export GOPATH=${KUBE_ROOT}/Godeps/_workspace:~/codebase/${KUBE_GOPATH}
     alias cbk="cd $KUBE_ROOT"
     # add etcd to the path, required for local clusters
-    export PATH=/opt/etcd:$PATH
+    export PATH=${KUBE_ROOT}/third_party/etcd:/usr/local/go/bin:$PATH
 
     if [[ -d /opt/google-cloud-sdk ]]; then
         source '/opt/google-cloud-sdk/path.bash.inc'
@@ -182,6 +182,13 @@ setupKubeEnv() {
     cluster/kubectl.sh config set-cluster local --server=http://127.0.0.1:8080 --insecure-skip-tls-verify=true
     cluster/kubectl.sh config set-context local --cluster=local
     cluster/kubectl.sh config use-context local
+}
+
+devImageInspector() {
+    II_GOPATH="image-inspector"
+    export II_ROOT=~/codebase/${II_GOPATH}/src/github.com/openshift/${II_GOPATH}
+    export GOPATH=${II_ROOT}/Godeps/_workspace:~/codebase/${II_GOPATH}
+    alias cbi="cd $II_ROOT"
 }
 
 devRebase() {
