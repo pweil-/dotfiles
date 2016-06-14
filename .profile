@@ -139,7 +139,13 @@ devOpenShift () {
     export OS_BIN=${OS_ROOT}/_output/local/bin/linux/amd64
     export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
     export PATH=$PATH:~/bin:$GOPATH/bin:${OS_BIN}:/opt/etcd:~/codebase/gotools/bin
-    export OPENSHIFT_MEMORY=4096
+
+    # Give darwin more memory since everything will be done inside a vm
+    if [[ "$platform" != "Darwin" ]]; then
+        export OPENSHIFT_MEMORY=4096
+    else
+        export OPENSHIFT_MEMORY=8192
+    fi
     export OPENSHIFT_NUM_CPUS=8
 
     alias cbo='cd ${OS_ROOT}'
