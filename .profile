@@ -29,17 +29,6 @@ if [[ "$platform" != "Darwin" ]]; then
     #    echo "fixing apple keyboard with fnmode"
     #    sudo su -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"
     #fi
-else 
-    ####################
-    # Global OSX items go here
-    ####################
-
-    # The new golang plugin of intellij will map the gopath to global libraries in the project automatically.
-    # This means that I can't use a single gopath and configure the projects nicely for IntelliSense while using
-    # the latest alpha plugin.  These aliases help setup the env prior to launching intellij.
-    alias ij="open -a /Applications/IntelliJ\ IDEA\ 14.app/"
-    alias oij="devOpenShift;ij"
-    alias kij="devKube;ij"
 fi
 
 ###
