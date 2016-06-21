@@ -39,8 +39,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     override.vm.box_url = "https://mirror.openshift.com/pub/vagrant/boxes/openshift3/fedora_virtualbox_inst.box"
     override.ssh.insert_key = true
 
-    v.memory            = 4096
-    v.cpus              = 2
-    v.customize ["modifyvm", :id, "--cpus", "2"]
+    v.memory            = 8092
+    v.cpus              = 8
+    v.customize ["modifyvm", :id, "--cpus", "8"]
   end 
 end
