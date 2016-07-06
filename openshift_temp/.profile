@@ -10,7 +10,7 @@ ORIGIN_BIN=${ORIGIN_BASE}/_output/local/bin/linux/amd64
 export PATH=${ORIGIN_BIN}:${PATH}
 
 alias cbo="cd ${ORIGIN_BASE}"
-alias oss="sudo ${ORIGIN_BIN}/openshift --loglevel=4 start --latest-images=true --volume-dir=/tmp/origin.local.volumes"
+alias oss="sudo ${ORIGIN_BIN}/openshift --loglevel=4 start --latest-images=true --volume-dir=/tmp/origin.local.volumes --etcd-dir=/tmp/origin.local.etcd"
 alias aes="sudo ${ORIGIN_BIN}/atomic-enterprise --loglevel=4 start --latest-images=true --volume-dir=/tmp/origin.local.volumes"
 #alias linkos="ln -s ${ORIGIN_BASE}/_output/local/bin/linux/amd64/openshift ${ORIGIN_BASE}/_output/local/bin/linux/amd64/osc"
 alias buildos="cbo; make clean && make; linkos"
