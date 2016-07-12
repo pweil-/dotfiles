@@ -1,0 +1,19 @@
+{
+  "apiVersion": "v1",
+  "kind": "ImageStream",
+  "metadata": {
+    "name": "hello-openshift"
+  },
+  "spec": {
+    "tags": [
+      {
+        "name": "helloV1",
+        "from": {
+          "kind": "DockerImage",
+          "name": "openshift/hello-openshift"
+        }
+      }
+    ]
+  },
+  "status": {}
+}

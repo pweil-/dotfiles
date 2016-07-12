@@ -1,0 +1,61 @@
+1. create image stream
+	oc create -f hello-openshift.json
+
+	AI: what are the different tag.From types: DockerImage, ImageStreamTag, ImageStreamImage?
+	AI: what does spec.DockerImageRepository do for you?
+
+2. tag image
+	tag an existing imagestream tag into a new tag
+		$ oc tag is-training/hello-openshift:helloV1 is-training/hello-openshift:helloV2
+		Tag hello-openshift:helloV2 set to is-training/hello-openshift@sha256:11a239ad661fdb6ba6a7d55d849e29367f8fae314ce5100a00782c0d98b65971.
+
+		This created the tag as a docker iamge reference
+
+
+	tag from docker into IS
+		$ oc tag --source=docker openshift/hello-openshift:latest is-training/hello-openshift:dockertag
+		Tag hello-openshift:dockertag set to openshift/hello-openshift:latest.
+
+	use the ref option
+		$ oc tag is-training/hello-openshift:helloV1 is-training/hello-openshift:reference --reference
+		Tag hello-openshift:reference set to is-training/hello-openshift@sha256:11a239ad661fdb6ba6a7d55d849e29367f8fae314ce5100a00782c0d98b65971.
+
+		NOTE: THE IS DIDN'T LOOK DIFFERENT HERE, WHAT DOES THIS OPTION DO?
+			in the is.spec the tag is set up from Kind: ImageStreamImage with reference: true
+
+	track another tag
+		$ oc tag --alias is-training/hello-openshift:helloV1 is-training/hello-openshift:alias
+		Tag hello-openshift:alias set up to track is-training/hello-openshift:helloV1.
+
+		in is.spec the tag is set up with Kind: ImageStreamTag and has the ns/name
+
+3. create image stream that references another
+	this is just using the tag.From to show another stream
+
+4. create pod that references an image stream
+
+5. import an image to a stream
+
+	$ oc import-image --from=pweil/hello-nginx hello-openshift
+		gives failure since it is hello-nginx-docker
+		sets up spec.tag.latest as from DockerImage
+
+	$ oc edit is hello-openshift
+		correct the spec tag
+	$ oc import-image hello-openshift
+		corrected
+
+
+
+
+
+---------------------------
+
+scheduled import (https://docs.openshift.org/latest/dev_guide/managing_images.html#importing-tag-and-image-metadata)
+external registry
+image pull secrets
+understand manifests and storage layout of docker registry
+
+
+
+
