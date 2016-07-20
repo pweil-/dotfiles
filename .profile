@@ -129,6 +129,8 @@ devOpenShift () {
     export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
     export PATH=$PATH:~/bin:$GOPATH/bin:${OS_BIN}:/opt/etcd:~/codebase/gotools/bin
 
+    export TEST_FILES=~/codebase/dotfiles/vagrantfiles/openshift
+
     # Give darwin more memory since everything will be done inside a vm
     if [[ "$platform" != "Darwin" ]]; then
         export OPENSHIFT_MEMORY=4096
@@ -162,6 +164,7 @@ devKube() {
     alias cbk="cd $KUBE_ROOT"
     # add etcd to the path, required for local clusters
     export PATH=${KUBE_ROOT}/third_party/etcd:/usr/local/go/bin:$PATH
+    export TEST_FILES=~/codebase/dotfiles/kube_temp
 
     if [[ -d /opt/google-cloud-sdk ]]; then
         source '/opt/google-cloud-sdk/path.bash.inc'

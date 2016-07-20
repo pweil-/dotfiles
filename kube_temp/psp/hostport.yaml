@@ -1,0 +1,16 @@
+# Copy of pod.yaml without file extension for test
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostport
+  labels:
+    name: hostport
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    -
+      hostPort: 80
+      containerPort: 80
+
