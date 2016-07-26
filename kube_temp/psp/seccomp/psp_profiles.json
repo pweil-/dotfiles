@@ -5,7 +5,7 @@
     "name": "profiles"
   },
   "spec": {     
-      "seccompProfiles": ["foo"], 
+      "seccompProfiles": ["unconfined"], 
       "seLinux": {
           "rule": "RunAsAny"
       },

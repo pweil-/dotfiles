@@ -163,7 +163,7 @@ devKube() {
     export GOPATH=${KUBE_ROOT}/Godeps/_workspace:~/codebase/${KUBE_GOPATH}
     alias cbk="cd $KUBE_ROOT"
     # add etcd to the path, required for local clusters
-    export PATH=${KUBE_ROOT}/third_party/etcd:/usr/local/go/bin:$PATH
+    export PATH=~/bin:${KUBE_ROOT}/third_party/etcd:/usr/local/go/bin:$PATH
     export TEST_FILES=~/codebase/dotfiles/kube_temp
 
     if [[ -d /opt/google-cloud-sdk ]]; then
