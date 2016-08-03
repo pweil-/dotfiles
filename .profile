@@ -165,6 +165,7 @@ devKube() {
     # add etcd to the path, required for local clusters
     export PATH=~/bin:${KUBE_ROOT}/third_party/etcd:/usr/local/go/bin:$PATH
     export TEST_FILES=~/codebase/dotfiles/kube_temp
+    export KUBERNETES_PROVIDER=local
 
     if [[ -d /opt/google-cloud-sdk ]]; then
         source '/opt/google-cloud-sdk/path.bash.inc'
