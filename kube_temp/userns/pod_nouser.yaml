@@ -1,0 +1,13 @@
+# Copy of pod.yaml without file extension for test
+apiVersion: v1
+kind: Pod
+metadata:
+  name: userns
+  labels:
+    name: userns
+spec:
+  containers:
+  - name: nginx
+    image: openshift/hello-openshift
+    ports:
+    - containerPort: 80
