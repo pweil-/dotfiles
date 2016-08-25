@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath
+spec:
+  containers:
+  - name: hostpath
+    image: kubernetes/pause
+    volumeMounts:
+    - mountPath: "/mnt/cephfs"
+      name: cephfs
+  volumes:
+  - name: cephfs
+    hostPath:
+      path: "/tmp"
+

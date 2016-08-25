@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: gist-pv-pod
+spec:
+  containers:
+    - name: frontend
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+      - mountPath: "/mytmp"
+        name: mypd
+  volumes:
+    - name: mypd
+      persistentVolumeClaim:
+       claimName: gist-pvc
