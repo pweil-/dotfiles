@@ -77,7 +77,6 @@ set nobackup
 
 " Hide mouse while typing
 set mousehide
-set mouse=a
 
 " Show match for partly typed search command
 set incsearch
