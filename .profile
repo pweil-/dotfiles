@@ -179,6 +179,12 @@ setupKubeEnv() {
     cluster/kubectl.sh config use-context local
 }
 
+devKubeDoc() {
+    alias cbk="cb: cd kubernetes.github.io"
+    alias kubedoc="cbk; docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 pweil/k8sdocs"
+}
+
+
 devImageInspector() {
     II_GOPATH="image-inspector"
     export II_ROOT=~/codebase/${II_GOPATH}/src/github.com/openshift/${II_GOPATH}
