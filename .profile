@@ -170,6 +170,7 @@ devKube() {
     fi
 
     alias luc="sudo PATH=$PATH -E hack/local-up-cluster.sh"
+    alias lucpsp="RUNTIME_CONFIG="extensions/v1beta1=true,extensions/v1beta1/podsecuritypolicy=true" luc"
     alias kc="$KUBE_ROOT/cluster/kubectl.sh"
 }
 
