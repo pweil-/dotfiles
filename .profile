@@ -159,7 +159,7 @@ devKube() {
     export GOPATH=${KUBE_ROOT}/Godeps/_workspace:~/codebase/${KUBE_GOPATH}
     alias cbk="cd $KUBE_ROOT"
     # add etcd to the path, required for local clusters
-    export PATH=~/bin:${KUBE_ROOT}/third_party/etcd:/usr/local/go/bin:$PATH
+    export PATH=~/bin:${KUBE_ROOT}/_output/local/bin/linux/amd64:${KUBE_ROOT}/third_party/etcd:/usr/local/go/bin:$PATH
     export TEST_FILES=~/codebase/dotfiles/kube_temp
     export KUBERNETES_PROVIDER=local
 
@@ -171,7 +171,7 @@ devKube() {
 
     alias luc="sudo PATH=$PATH -E hack/local-up-cluster.sh"
     alias lucpsp="RUNTIME_CONFIG="extensions/v1beta1=true,extensions/v1beta1/podsecuritypolicy=true" luc"
-    alias kc="$KUBE_ROOT/cluster/kubectl.sh"
+    alias kc=kubectl
 }
 
 setupKubeEnv() {
