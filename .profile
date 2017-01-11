@@ -149,14 +149,14 @@ setupOSEnv() {
 
 devKube() {
     KUBE_GOPATH="kubernetes"
-    eval "$(gimme 1.6)"
+    eval "$(gimme 1.7)"
 
     if [[ "$platform" == "Darwin" ]]; then
         alias kubevm="cd ~/codebase/dotfiles/vagrantfiles/k8s" 
     fi
 
     export KUBE_ROOT=~/codebase/${KUBE_GOPATH}/src/k8s.io/kubernetes
-    export GOPATH=${KUBE_ROOT}/Godeps/_workspace:~/codebase/${KUBE_GOPATH}
+    export GOPATH=~/codebase/${KUBE_GOPATH}
     alias cbk="cd $KUBE_ROOT"
     # add etcd to the path, required for local clusters
     export PATH=~/bin:${KUBE_ROOT}/_output/local/bin/linux/amd64:${KUBE_ROOT}/third_party/etcd:/usr/local/go/bin:$PATH
