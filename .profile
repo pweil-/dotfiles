@@ -124,6 +124,7 @@ devGoTools() {
 
 devOpenShift () {
     OS_GOPATH="openshift"
+    eval "$(gimme 1.7)"
     export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/local/bin/linux/amd64
     export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
