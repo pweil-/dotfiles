@@ -1,0 +1,21 @@
+# Copy of pod.yaml without file extension for test
+apiVersion: v1
+kind: Pod
+metadata:
+  name: userns
+  labels:
+    name: userns
+spec:
+  securityContext:
+      fsGroup: 2197152
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+    volumeMounts:
+        - name: test-emptydir
+          mountPath: /test-emptydir
+  volumes:
+      - name: test-emptydir
+        emptyDir: {}
