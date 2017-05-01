@@ -1,16 +1,10 @@
 #!/bin/bash
 
+##################################################################################################
+# global Linux items
+##################################################################################################
 platform=$(uname)
-
-if [[ -f ~/git-completion.bash ]]; then
-    source ~/git-completion.bash
-fi
-
 if [[ "$platform" != "Darwin" ]]; then
-    ######################
-    # global Linux only items go here
-    ######################
-
     #disable alt+f1 shortcut for fedora setup
     gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
     #tweak fonts
@@ -30,37 +24,39 @@ if [[ "$platform" != "Darwin" ]]; then
     #    sudo su -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"
     #fi
 fi
+##################################################################################################
 
-# for vim-go tools we will add this directory to the path if it exists
-# if you are setting up vim for the first time for go then create this directory and
-# run GoInstallBinaries
-if [[ -d ~/codebase/vim-go-workspace/bin ]]; then
-    export PATH=~/codebase/vim-go-workspace/bin:$PATH
+##################################################################################################
+# random setup items
+##################################################################################################
+if [[ -f ~/git-completion.bash ]]; then
+    source ~/git-completion.bash
 fi
 
+# include homedir bin
+if [[ -d ~/bin ]]; then
+    export PATH=$PATH:~/bin
+fi
 
-setupAliases () {
-    ###
-    # shell command aliases
-    ###
-    alias ll='ls -al'
-    alias l='ls'
-
-    ###
-    # editing aliases
-    ###
-    alias profile='vi ~/.profile'
-    alias sop="source ~/.profile"
+# Global go path for installing "normal" things.  Dev projects have their
+# own gopath setup
+export GOPATH=~/codebase/go
+export PATH=$PATH:~/codebase/go/bin
+eval "$(gimme 1.8)" > /dev/null 2>&1
 
 
-    alias vi=vim
-
-    alias vimrc='vi ~/.vimrc'
-
-    alias cb="cd ~/codebase"
-    alias svns="svn status"
-
-}
+##################################################################################################
+# aliases
+##################################################################################################
+alias ll='ls -al'
+alias l='ls'
+alias profile='vi ~/.profile'
+alias sop="source ~/.profile"
+alias vi=vim
+alias vimrc='vi ~/.vimrc'
+alias cb="cd ~/codebase"
+alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+##################################################################################################
 
 devTwoBook () {
     # mamp php version
@@ -109,21 +105,13 @@ devTwoBook () {
 
 }
 
-gitSetup () {
-    alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-}
-
-devGoTools() {
-    export PATH=$PATH:~/codebase/gotools/bin
-}
-
 devOpenShift () {
     OS_GOPATH="openshift"
     eval "$(gimme 1.7)"
     export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/local/bin/linux/amd64
-    export GOPATH=${OS_ROOT}/Godeps/_workspace:~/codebase/${OS_GOPATH}
-    export PATH=$PATH:~/bin:$GOPATH/bin:${OS_BIN}:/opt/etcd:~/codebase/gotools/bin
+    export GOPATH=~/codebase/${OS_GOPATH}
+    export PATH=$PATH:${OS_BIN}
 
     export TEST_FILES=~/codebase/dotfiles/vagrantfiles/openshift
 
@@ -213,16 +201,4 @@ dockerClearImages() {
 niceEtcd(){
     curl -L -s "${1}" | python -m json.tool
 }
-
-
-setupAliases
-gitSetup
-
-###
-# setup the correct dev env here
-###
-#devTwoBook
-#devGoLangTutorial
-#devOpenShift
-devGoTools
 
