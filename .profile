@@ -119,6 +119,7 @@ devOpenShift () {
     export OPENSHIFT_NUM_CPUS=8
 
     alias cbo='cd ${OS_ROOT}'
+    alias cbv='cb;cd dotfiles/vagrantfiles/openshift'
     alias buildos="cbo; make clean && make"
     alias testos="cbo; hack/test-go.sh"
     alias cleanos="cbo; rm -Rf openshift.local.*"
