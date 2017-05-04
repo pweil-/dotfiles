@@ -6,12 +6,12 @@
 platform=$(uname)
 if [[ "$platform" != "Darwin" ]]; then
     #disable alt+f1 shortcut for fedora setup
-    gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
+    #gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
     #tweak fonts
-    gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"
-    gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
+    #gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"
+    #gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
     #adjust the mac monitor to be less bright (no gui controls)
-    #xrandr --output DP-0 --brightness 0.9
+    ##xrandr --output DP-0 --brightness 0.9
 
     export JAVA_HOME=/etc/alternatives/java_sdk
     # this seems to have changed as of fc21
@@ -107,7 +107,7 @@ devTwoBook () {
 
 devOpenShift () {
     OS_GOPATH="openshift"
-    eval "$(gimme 1.7)"
+    eval "$(gimme 1.8)"
     export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/local/bin/linux/amd64
     export GOPATH=~/codebase/${OS_GOPATH}
@@ -115,8 +115,13 @@ devOpenShift () {
 
     export TEST_FILES=~/codebase/dotfiles/vagrantfiles/openshift
 
+    if [[ "$platform" == "Darwin" ]]; then
+        export OPENSHIFT_NUM_CPUS=$(sysctl -n hw.ncpu)
+    else
+        export OPENSHIFT_NUM_CPUS=8
+    fi
+
     export OPENSHIFT_MEMORY=8192
-    export OPENSHIFT_NUM_CPUS=8
 
     alias cbo='cd ${OS_ROOT}'
     alias cbv='cb;cd dotfiles/vagrantfiles/openshift'
@@ -134,7 +139,7 @@ setupOSEnv() {
 
 devKube() {
     KUBE_GOPATH="kubernetes"
-    eval "$(gimme 1.7)"
+    eval "$(gimme 1.8)"
 
     if [[ "$platform" == "Darwin" ]]; then
         alias kubevm="cd ~/codebase/dotfiles/vagrantfiles/k8s" 
