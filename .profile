@@ -6,12 +6,10 @@
 platform=$(uname)
 if [[ "$platform" != "Darwin" ]]; then
     #disable alt+f1 shortcut for fedora setup
-    #gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
+    gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
     #tweak fonts
-    #gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"
-    #gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
-    #adjust the mac monitor to be less bright (no gui controls)
-    ##xrandr --output DP-0 --brightness 0.9
+    gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"
+    gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
 
     export JAVA_HOME=/etc/alternatives/java_sdk
     # this seems to have changed as of fc21
