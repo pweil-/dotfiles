@@ -10,6 +10,8 @@ if [[ "$platform" != "Darwin" ]]; then
     #tweak fonts
     gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"
     gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
+    # move buttons to the left
+    gsettings set org.gnome.desktop.wm.preferences button-layout "close,minimize,maximize:"
 
     export JAVA_HOME=/etc/alternatives/java_sdk
     # this seems to have changed as of fc21
@@ -177,7 +179,7 @@ devKubeDoc() {
 devImageInspector() {
     II_GOPATH="image-inspector"
     export II_ROOT=~/codebase/${II_GOPATH}/src/github.com/openshift/${II_GOPATH}
-    export GOPATH=${II_ROOT}/Godeps/_workspace:~/codebase/${II_GOPATH}
+    export GOPATH=~/codebase/${II_GOPATH}
     alias cbi="cd $II_ROOT"
 }
 
