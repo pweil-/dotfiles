@@ -32,6 +32,6 @@ echo "source ~/.profile" >> /home/vagrant/.bashrc
 sudo dnf install -y git docker
 
 
-sudo dnf install -y golang golang-race make gcc zip mercurial krb5-devel bsdtar bc rsync bind-utils file jq createrepo openssl gpgme gpgme-devel libassuan libassuan-devel wget perl
+sudo dnf install -y golang golang-race make gcc zip mercurial krb5-devel bsdtar bc rsync bind-utils file jq createrepo openssl gpgme gpgme-devel libassuan libassuan-devel wget perl vim
 
 sudo dnf clean all
