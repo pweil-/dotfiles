@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  config.vm.box = "development"
+  config.vm.box_url="file:///Users/pweil/codebase/vagrant-boxes/f25-with-deps.box"
+  config.ssh.insert_key = false
+
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.synced_folder "/Users/pweil/codebase/dotfiles", "/home/vagrant/codebase/dotfiles", type: "nfs"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  # todo make this more configurable, read from the environment and setup by my profile
+  config.vm.synced_folder "/Users/pweil/codebase/openshift", "/home/vagrant/codebase/openshift", type: "nfs"
+
+  config.vm.provider "virtualbox" do |vb|
+     vb.memory = "16000"
+     vb.cpus = 4
+   end
+
+end

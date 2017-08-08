@@ -124,8 +124,7 @@ devOpenShift () {
     export OPENSHIFT_MEMORY=8192
 
     alias cbo='cd ${OS_ROOT}'
-    alias cbv='cb;cd dotfiles/vagrantfiles/openshift'
-    alias buildos="cbo; make clean && make"
+    alias buildos="cbo; OS_BUILD_PLATFORMS='linux/amd64' make WHAT='cmd/oc cmd/openshift'"
     alias testos="cbo; hack/test-go.sh"
     alias cleanos="cbo; rm -Rf openshift.local.*"
     alias oss="sudo ${OS_BIN}/openshift --loglevel=4 start --latest-images"
