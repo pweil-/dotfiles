@@ -7,7 +7,8 @@
 # you're doing.
 Vagrant.configure(2) do |config|
   config.vm.box = "development"
-  config.vm.box_url="file:///Users/pweil/codebase/vagrant-boxes/f25-with-deps.box"
+  config.vm.box_url="file:///Users/pweil/codebase/vagrant-boxes/f25.box"
+  #config.vm.box="fedora/25-cloud-base"
   config.ssh.insert_key = false
 
   # config.vm.network "forwarded_port", guest: 80, host: 8080
