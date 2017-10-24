@@ -138,7 +138,7 @@ setupOSEnv() {
 
 devKube() {
     KUBE_GOPATH="kubernetes"
-    eval "$(gimme 1.8)"
+    eval "$(gimme 1.8.3)"
 
     if [[ "$platform" == "Darwin" ]]; then
         alias kubevm="cd ~/codebase/dotfiles/vagrantfiles/k8s" 
