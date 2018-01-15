@@ -182,18 +182,6 @@ devImageInspector() {
     alias cbi="cd $II_ROOT"
 }
 
-devRebase() {
-    export GOPATH=~/codebase/rebase
-    export PATH=${GOPATH}/bin:${PATH}
-    alias rebaseInit="cb;rm -Rf rebase;mkdir rebase;go get github.com/tools/godep; go get github.com/openshift/origin; go get github.com/GoogleCloudPlatform/kubernetes;cd ${GOPATH}/src/github.com/GoogleCloudPlatform/kubernetes; git checkout master; git pull; git checkout -b stable_proposed; echo 'Rebase initialized and stable_proposed created'"
-    alias cbk="cd ${GOPATH}/src/github.com/GoogleCloudPlatform/kubernetes"
-    alias cbo="cd ${GOPATH}/src/github.com/openshift/origin"
-}
-
-oskill() {
-    ps -ef | grep "openshift start" | grep -v grep | awk '{ print $2 }' | xargs kill
-}
-
 dockerClear() {
     docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 }
