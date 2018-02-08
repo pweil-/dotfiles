@@ -182,6 +182,14 @@ devImageInspector() {
     alias cbi="cd $II_ROOT"
 }
 
+devACS() {
+    ACSENGINE_GOPATH="acs-engine"
+    export ACSENGINE_ROOT="~/codebase/${ACSENGINE_GOPATH}/src/github.com/Azure/${ACSENGINE_GOPATH}"
+    export GOPATH=~/codebase/${ACSENGINE_GOPATH}
+    export PATH=$PATH:${ACSENGINE_ROOT}/bin
+    alias cba="cd $ACSENGINE_ROOT"
+}
+
 dockerClear() {
     docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 }
