@@ -42,7 +42,7 @@ fi
 # own gopath setup
 export GOPATH=~/codebase/go
 export PATH=$PATH:~/codebase/go/bin
-eval "$(gimme 1.8)" > /dev/null 2>&1
+eval "$(gimme 1.9)" > /dev/null 2>&1
 
 
 ##################################################################################################
@@ -107,7 +107,7 @@ devTwoBook () {
 
 devOpenShift () {
     OS_GOPATH="openshift"
-    eval "$(gimme 1.8)"
+    eval "$(gimme 1.9)"
     export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
     export OS_BIN=${OS_ROOT}/_output/local/bin/linux/amd64
     export GOPATH=~/codebase/${OS_GOPATH}
@@ -138,7 +138,7 @@ setupOSEnv() {
 
 devKube() {
     KUBE_GOPATH="kubernetes"
-    eval "$(gimme 1.8.3)"
+    eval "$(gimme 1.9)"
 
     if [[ "$platform" == "Darwin" ]]; then
         alias kubevm="cd ~/codebase/dotfiles/vagrantfiles/k8s" 
