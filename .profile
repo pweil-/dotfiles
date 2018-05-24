@@ -186,7 +186,7 @@ devACS() {
     ACSENGINE_GOPATH="acs-engine"
     export ACSENGINE_ROOT="~/codebase/${ACSENGINE_GOPATH}/src/github.com/Azure/${ACSENGINE_GOPATH}"
     export GOPATH=~/codebase/${ACSENGINE_GOPATH}
-    export PATH=$PATH:${ACSENGINE_ROOT}/bin
+    export PATH=$GOPATH/bin:$PATH:${ACSENGINE_ROOT}/bin
     alias cba="cd $ACSENGINE_ROOT"
 }
 
