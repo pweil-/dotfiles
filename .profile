@@ -188,6 +188,7 @@ devACS() {
     export GOPATH=~/codebase/${ACSENGINE_GOPATH}
     export PATH=$GOPATH/bin:$PATH:${ACSENGINE_ROOT}/bin
     alias cba="cd $ACSENGINE_ROOT"
+    export AZURE_PROFILE=redhat
 }
 
 dockerClear() {
