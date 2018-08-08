@@ -191,6 +191,15 @@ devACS() {
     export AZURE_PROFILE=redhat
 }
 
+devOSA() {
+    ACSENGINE_GOPATH="openshift-azure"
+    export ACSENGINE_ROOT="~/codebase/${ACSENGINE_GOPATH}/src/github.com/openshift/${ACSENGINE_GOPATH}"
+    export GOPATH=~/codebase/${ACSENGINE_GOPATH}
+    export PATH=$GOPATH/bin:$PATH:${ACSENGINE_ROOT}/bin
+    alias cbo="cd $ACSENGINE_ROOT && . ./env"
+    export AZURE_PROFILE=redhat
+}
+
 dockerClear() {
     docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 }
