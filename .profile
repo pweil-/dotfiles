@@ -42,7 +42,7 @@ fi
 # own gopath setup
 export GOPATH=~/codebase/go
 export PATH=$PATH:~/codebase/go/bin
-eval "$(gimme 1.10.3)" > /dev/null 2>&1
+eval "$(gimme 1.11.2)" > /dev/null 2>&1
 
 
 ##################################################################################################
@@ -196,6 +196,9 @@ devOSA() {
     export ACSENGINE_ROOT="~/codebase/${ACSENGINE_GOPATH}/src/github.com/openshift/${ACSENGINE_GOPATH}"
     export GOPATH=~/codebase/${ACSENGINE_GOPATH}
     export PATH=$GOPATH/bin:$PATH:${ACSENGINE_ROOT}/bin
+    # add dev oc to the path for commands and add the default kubeconfig
+    export PATH=$PATH:~/codebase/openshift/src/github.com/openshift/origin/_output/local/bin/linux/amd64
+    export KUBECONFIG=${ACSENGINE_ROOT}/_data/_out/admin.kubeconfig
     alias cbo="cd $ACSENGINE_ROOT && . ./env"
     export AZURE_PROFILE=redhat
 }
