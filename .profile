@@ -131,6 +131,18 @@ devOpenShift () {
 
 }
 
+devInstaller () {
+    OS_GOPATH="installer"
+    #eval "$(gimme 1.9)"
+    export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/${OS_GOPATH}
+    export OS_BIN=${OS_ROOT}/bin
+    export GOPATH=~/codebase/${OS_GOPATH}
+    export PATH=$PATH:${OS_BIN}
+
+    alias cbi="cd ${OS_ROOT}"
+    alias cbc="cd ~/codebase/clusters"
+}
+
 setupOSEnv() {
    sudo chmod -R 777 ${OS_ROOT}/openshift.local.*
    export KUBECONFIG=${OS_ROOT}/openshift.local.config/master/admin.kubeconfig
