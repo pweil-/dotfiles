@@ -138,6 +138,7 @@ devInstaller () {
     export OS_BIN=${OS_ROOT}/bin
     export GOPATH=~/codebase/${OS_GOPATH}
     export PATH=$PATH:${OS_BIN}
+    export AWS_PROFILE=openshift-dev
 
     alias cbi="cd ${OS_ROOT}"
     alias cbc="cd ~/codebase/clusters"
