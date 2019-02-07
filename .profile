@@ -142,6 +142,7 @@ devInstaller () {
 
     alias cbi="cd ${OS_ROOT}"
     alias cbc="cd ~/codebase/clusters"
+    alias make="cbc && hack/build.sh"
 }
 
 setupOSEnv() {
