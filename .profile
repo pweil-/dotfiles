@@ -23,6 +23,9 @@ if [[ "$platform" != "Darwin" ]]; then
     #    echo "fixing apple keyboard with fnmode"
     #    sudo su -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"
     #fi
+else
+    # ensure commands like mv include hidden files
+    shopt -s dotglob
 fi
 ##################################################################################################
 
@@ -42,7 +45,7 @@ fi
 # own gopath setup
 export GOPATH=~/codebase/go
 export PATH=$PATH:~/codebase/go/bin
-eval "$(gimme 1.11.2)" > /dev/null 2>&1
+eval "$(gimme 1.13.4)" > /dev/null 2>&1
 
 
 ##################################################################################################
