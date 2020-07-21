@@ -11,7 +11,8 @@ if [[ "$platform" != "Darwin" ]]; then
     gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"
     gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
     # move buttons to the left
-    gsettings set org.gnome.desktop.wm.preferences button-layout "close,minimize,maximize:"
+    # this can be done via gnome-tweak-tools now
+    #gsettings set org.gnome.desktop.wm.preferences button-layout "close,minimize,maximize:"
 
     export JAVA_HOME=/etc/alternatives/java_sdk
     # this seems to have changed as of fc21
@@ -21,7 +22,9 @@ if [[ "$platform" != "Darwin" ]]; then
 
     #if [[ "$fnmode" != "0" ]]; then
     #    echo "fixing apple keyboard with fnmode"
-    #    sudo su -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"
+    #    0 = disable fn key, 1 = fn keys act as special keys, 2 = fn keys act as fn keys, press fn 
+    #    to use special keys
+    #    sudo su -c "echo 2 > /sys/module/hid_apple/parameters/fnmode"
     #fi
 else
     # ensure commands like mv include hidden files
@@ -45,7 +48,8 @@ fi
 # own gopath setup
 export GOPATH=~/codebase/go
 export PATH=$PATH:~/codebase/go/bin
-eval "$(gimme 1.13.4)" > /dev/null 2>&1
+DEFAULT_GO_VER=1.13.4
+eval "$(gimme $DEFAULT_GO_VER)" > /dev/null 2>&1
 
 
 ##################################################################################################
@@ -61,60 +65,25 @@ alias cb="cd ~/codebase"
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 ##################################################################################################
 
-devTwoBook () {
-    # mamp php version
-    export PATH=/Applications/MAMP/bin/php/php5.3.27/bin:$PATH
-    export PATH=/Applications/MAMP/Library/bin:$PATH
+setupDevEnv () {
+    ORG=$1
+    BASE_PATH=$2
+    GO_VER=$3
 
+    export GOPATH=~/codebase/${BASE_PATH}
+    export CODE_ROOT=${GOPATH}/src/github.com/$ORG/$BASE_PATH
+    export CODE_BIN=${CODE_ROOT}/_output/local/bin/linux/amd64
+    export PATH=$PATH:/${CODE_BIN}
 
-    alias phpini='vi /Applications/MAMP/bin/php/php5.3.27/conf/php.ini'
-    alias vhosts='vi /Applications/MAMP/conf/apache/extra/httpd-vhosts.conf'
-    alias httpdc='vi /Applications/MAMP/conf/apache/httpd.conf'
-    alias nginxc='vi /usr/local/etc/nginx/nginx.conf'
-    alias fpmc='sudo vi /etc/php-fpm.conf'
+    alias cbc="cd $CODE_ROOT"
+}
 
-    ###
-    # work aliases
-    ###
-    alias start="sudo /Applications/MAMP/bin/apache2/bin/apachectl -f /Applications/MAMP/conf/apache/httpd.conf -k start; /Applications/MAMP/bin/startMysql.sh"
-
-    alias stop="sudo /Applications/MAMP/bin/apache2/bin/apachectl stop; /Applications/MAMP/bin/stopMysql.sh"
-
-    alias db="mysql -u root -proot"
-
-    alias cb="cd ~/codebase/twobook_git/twobook_naansense"
-    alias cbb="cd ~/codebase/twobook_naansense/branches"
-    alias cbg="cd ~/codebase/git/dotfiles"
-
-    alias phplog="tail -f /Applications/MAMP/logs/php_error.log"
-
-    alias nglog="tail -f /usr/local/var/log/nginx/error.log"
-
-    alias fpm="sudo php-fpm -c /Applications/MAMP/bin/php/php5.3.27/conf/php.ini"
-    alias rnginx="sudo nginx -s reload"
-
-    alias tbv="cb; cd etc/vagrant-prod"
-    alias tbu="tbv; vagrant resume"
-    alias tbd="tbv; vagrant suspend"
-    alias tbb="tbv; vagrant ssh beanstalk"
-    alias tbdb="tbv; vagrant ssh db"
-    alias tbw="tbv; vagrant ssh web-1"
-    alias tbn="tbv; vagrant ssh lb"
-
-    #Git stuff
-    alias restash="cb; git checkout etc/vagrant-prod/Vagrantfile src/application/config/database.php src/scripts/server_setup/setup/nginx/development/default.conf"
-    alias unstash="git stash apply stash@{0}"
-    alias gu="restash; git checkout master; git svn rebase; unstash"
-
+devMetering () {
+    setupDevEnv kube-reporting metering-operator $DEFAULT_GO_VER
 }
 
 devOpenShift () {
-    OS_GOPATH="openshift"
-    #eval "$(gimme 1.9)"
-    export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/origin
-    export OS_BIN=${OS_ROOT}/_output/local/bin/linux/amd64
-    export GOPATH=~/codebase/${OS_GOPATH}
-    export PATH=$PATH:${OS_BIN}
+    setupDevEnv openshift origin $DEFAULT_GO_VER
 
     export TEST_FILES=~/codebase/dotfiles/vagrantfiles/openshift
 
@@ -126,25 +95,16 @@ devOpenShift () {
 
     export OPENSHIFT_MEMORY=8192
 
-    alias cbo='cd ${OS_ROOT}'
-    alias buildos="cbo; OS_BUILD_PLATFORMS='linux/amd64' make WHAT='cmd/oc cmd/openshift'"
-    alias testos="cbo; hack/test-go.sh"
-    alias cleanos="cbo; rm -Rf openshift.local.*"
-    alias oss="sudo ${OS_BIN}/openshift --loglevel=4 start --latest-images"
+    alias buildos="cbc; OS_BUILD_PLATFORMS='linux/amd64' make WHAT='cmd/oc cmd/openshift'"
+    alias testos="cbc; hack/test-go.sh"
+    alias cleanos="cbc; rm -Rf openshift.local.*"
+    alias oss="sudo ${CODE_BIN}/openshift --loglevel=4 start --latest-images"
 
 }
 
 devInstaller () {
-    OS_GOPATH="installer"
-    #eval "$(gimme 1.9)"
-    export OS_ROOT=~/codebase/${OS_GOPATH}/src/github.com/openshift/${OS_GOPATH}
-    export OS_BIN=${OS_ROOT}/bin
-    export GOPATH=~/codebase/${OS_GOPATH}
-    export PATH=$PATH:${OS_BIN}
+    setupDevEnv openshift intaller $DEFAULT_GO_VER
     export AWS_PROFILE=openshift-dev
-
-    alias cbi="cd ${OS_ROOT}"
-    alias cbc="cd ~/codebase/clusters"
     alias make="cbi && hack/build.sh"
 }
 
@@ -154,27 +114,7 @@ setupOSEnv() {
 }
 
 devKube() {
-    KUBE_GOPATH="kubernetes"
-    #eval "$(gimme 1.10)"
-
-    if [[ "$platform" == "Darwin" ]]; then
-        alias kubevm="cd ~/codebase/dotfiles/vagrantfiles/k8s" 
-    fi
-
-    export KUBE_ROOT=~/codebase/${KUBE_GOPATH}/src/k8s.io/kubernetes
-    export GOPATH=~/codebase/${KUBE_GOPATH}
-    alias cbk="cd $KUBE_ROOT"
-    # add etcd to the path, required for local clusters
-    export PATH=~/bin:${KUBE_ROOT}/_output/local/bin/linux/amd64:${KUBE_ROOT}/third_party/etcd:/usr/local/go/bin:$PATH
-    export TEST_FILES=~/codebase/dotfiles/kube_temp
-    export KUBERNETES_PROVIDER=local
-
-    if [[ -d /opt/google-cloud-sdk ]]; then
-        source '/opt/google-cloud-sdk/path.bash.inc'
-        source '/opt/google-cloud-sdk/completion.bash.inc'
-        export KUBE_GCE_INSTANCE_PREFIX=pweil-e2e
-    fi
-
+    setupDevEnv k8s.io kubernetes $DEFAULT_GO_VER
     alias luc="sudo PATH=$PATH -E hack/local-up-cluster.sh"
     alias lucpsp="RUNTIME_CONFIG="extensions/v1beta1=true,extensions/v1beta1/podsecuritypolicy=true" luc"
     alias kc=kubectl
@@ -190,7 +130,6 @@ devKubeDoc() {
     alias cbk="cb: cd kubernetes.github.io"
     alias kubedoc="cbk; docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 pweil/k8sdocs"
 }
-
 
 devImageInspector() {
     II_GOPATH="image-inspector"
