@@ -5,8 +5,17 @@
 ##################################################################################################
 platform=$(uname)
 if [[ "$platform" != "Darwin" ]]; then
-    #disable alt+f1 shortcut for fedora setup
+    ###
+    # disable shortcuts that are used in IntelliJ's windows keymap since that is what I'm
+    # most used to
+    ###
+    # alt+f1
     gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"
+    # ctrl+alt+left
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "[]"
+    # ctrl+alt+right
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "[]"
+
     #tweak fonts
     gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"
     gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
