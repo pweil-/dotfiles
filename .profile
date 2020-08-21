@@ -79,6 +79,8 @@ setupDevEnv () {
     BASE_PATH=$2
     GO_VER=$3
 
+    eval "$(gimme $GO_VER)" > /dev/null 2>&1
+
     export GOPATH=~/codebase/${BASE_PATH}
     export CODE_ROOT=${GOPATH}/src/github.com/$ORG/$BASE_PATH
     export CODE_BIN=${CODE_ROOT}/_output/local/bin/linux/amd64
