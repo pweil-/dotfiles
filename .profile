@@ -27,11 +27,15 @@ if [[ "$platform" != "Darwin" ]]; then
     # this seems to have changed as of fc21
     export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
+    # this is only temporary and a bit annoying.  To make a permanent change you must
+    # update /etc/modprobe.d/hid_apple.conf to have "options hid_apple fnmode=2"
+    # and update initramfs using dracut -f.
+    # see http://flavioleitner.blogspot.com/2016/12/apple-usb-keyboard-on-linux-fedora-25.html
+    #
     #fnmode=$(cat /sys/module/hid_apple/parameters/fnmode)
-
     #if [[ "$fnmode" != "0" ]]; then
     #    echo "fixing apple keyboard with fnmode"
-    #    0 = disable fn key, 1 = fn keys act as special keys, 2 = fn keys act as fn keys, press fn 
+    #    0 = disable fn key, 1 = fn keys act as special keys, 2 = fn keys act as fn keys, press fn
     #    to use special keys
     #    sudo su -c "echo 2 > /sys/module/hid_apple/parameters/fnmode"
     #fi
