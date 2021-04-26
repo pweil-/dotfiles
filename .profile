@@ -61,7 +61,7 @@ fi
 # own gopath setup
 export GOPATH=~/codebase/go
 export PATH=$PATH:~/codebase/go/bin
-DEFAULT_GO_VER=1.13.4
+DEFAULT_GO_VER=1.15
 eval "$(gimme $DEFAULT_GO_VER)" > /dev/null 2>&1
 
 
@@ -110,10 +110,18 @@ devOpenShift () {
 
     export OPENSHIFT_MEMORY=8192
 
+<<<<<<< HEAD
     alias buildos="cbc; OS_BUILD_PLATFORMS='linux/amd64' make WHAT='cmd/oc cmd/openshift'"
     alias testos="cbc; hack/test-go.sh"
     alias cleanos="cbc; rm -Rf openshift.local.*"
     alias oss="sudo ${CODE_BIN}/openshift --loglevel=4 start --latest-images"
+=======
+    alias cbo='cd ${OS_ROOT}'
+    alias buildos="cbo; OS_BUILD_PLATFORMS='linux/amd64' make WHAT='cmd/oc cmd/openshift'"
+    alias testos="cbo; hack/test-go.sh"
+    alias cleanos="cbo; rm -Rf openshift.local.*"
+    alias oss="sudo ${OS_BIN}/openshift --loglevel=4 start --latest-images --etcd-dir=/tmp/openshift.local.etcd --volume-dir=/tmp/openshift.local.volumes"
+>>>>>>> update profile and vagrant
 
 }
 
