@@ -18,15 +18,15 @@ chmod +x ~/bin/gimme
 cd ~/codebase
 git clone git@github.com:pweil-/dotfiles.git
 
-ln -s ~/codebase/.profile ~/.profile
+ln -s ~/codebase/dotfiles/.profile ~/.profile
 echo "source ~/.profile" >> ~/.bashrc
 
 
 ###
 # vim
 ###
-ln -s ~/codebase/.vimrc ~/.vimrc
-ln -s ~/codebase/.vim ~/.vim
+ln -s ~/codebase/dotfiles/.vimrc ~/.vimrc
+ln -s ~/codebase/dotfiles/.vim ~/.vim
 
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo "Be sure to run BundleInstall in vim"
