@@ -1,0 +1,39 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "fedora/33-cloud-base"
+  config.vm.box_version = "33.20201019.0"
+
+  config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.synced_folder "~/codebase", "/home/vagrant/codebase", type: "nfs"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider "virtualbox" do |vb|
+     vb.memory = "4096"
+  end
+
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+     sudo dnf group install -y "Development Tools"
+     sudo dnf install -y vim krb5-devel ntp
+     sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+     sudo dnf makecache
+     sudo dnf install -y docker-ce docker-ce-cli containerd.io
+
+     sudo systemctl enable --now docker
+
+     sudo usermod -aG docker $(whoami)
+
+     mkdir -p ~/bin
+
+     curl -sL -o ~/bin/gimme https://raw.githubusercontent.com/travis-ci/gimme/master/gimme
+     chmod +x ~/bin/gimme
+
+     ln -s ~/codebase/dotfiles/.profile ~/.profile
+     echo "source ~/.profile" >> ~/.bashrc
+
+     sudo timedatectl set-timezone America/New_York
+     sudo systemctl enable --now ntpd
+   SHELL
+end
