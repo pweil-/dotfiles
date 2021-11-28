@@ -61,7 +61,7 @@ fi
 # own gopath setup
 export GOPATH=~/codebase/go
 export PATH=$PATH:~/codebase/go/bin
-DEFAULT_GO_VER=1.15
+DEFAULT_GO_VER=1.16
 eval "$(gimme $DEFAULT_GO_VER)" > /dev/null 2>&1
 
 
@@ -172,6 +172,15 @@ devOSA() {
     export KUBECONFIG=${ACSENGINE_ROOT}/_data/_out/admin.kubeconfig
     alias cbo="cd $ACSENGINE_ROOT && . ./env"
     export AZURE_PROFILE=redhat
+}
+
+devKCP() {
+    KCP_GOPATH="kcp"
+    export GOPATH=~/codebase/$KCP_GOPATH
+    KCP_ROOT=$GOPATH/src/github.com/kcp-dev/kcp
+    alias cbc="cd $KCP_ROOT"
+    export KUBECONFIG=$KCP_ROOT/.kcp/admin.kubeconfig
+    alias kcp-start="cd $KCP_ROOT && go run ./cmd/kcp start"
 }
 
 dockerClear() {
