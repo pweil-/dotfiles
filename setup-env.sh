@@ -2,6 +2,9 @@
 
 ###
 # Be sure to have added your git key in order to perform the clones below
+# curl -sL -o ./setup-env.sh https://raw.githubusercontent.com/pweil-/dotfiles/master/setup-env.sh
+# chmod 750 ./setup-env.sh
+# ./setup-env.sh
 ###
 
 set -eux -o pipefail
