@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
+###
+# Be sure to have added your git key in order to perform the clones below
+###
+
 set -eux -o pipefail
+
+platform=$(uname)
 
 # sudo dnf install -y git vim
 
@@ -31,12 +37,13 @@ ln -s ~/codebase/dotfiles/.vim ~/.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo "Be sure to run BundleInstall in vim"
 
-
-###
-# gnome terminal colors
-###
 cd ~/codebase
-git clone https://github.com/aruhier/gnome-terminal-colors-solarized.git
-gnome-terminal-colors-solarized/install.sh
+if [[ "$platform" != "Darwin" ]]; then
+   git clone https://github.com/aruhier/gnome-terminal-colors-solarized.git
+   gnome-terminal-colors-solarized/install.sh
+else
+   git clone https://github.com/tomislav/osx-terminal.app-colors-solarized
+   echo "double click the terminal theme in order to install on mac"
+fi
 
 cd ~
