@@ -40,6 +40,7 @@ if [[ "$platform" != "Darwin" ]]; then
     #    sudo su -c "echo 2 > /sys/module/hid_apple/parameters/fnmode"
     #fi
 else
+    export PATH="/usr/local/sbin:$PATH"
     # ensure commands like mv include hidden files
     shopt -s dotglob
 fi
@@ -61,7 +62,7 @@ fi
 # own gopath setup
 export GOPATH=~/codebase/go
 export PATH=$PATH:~/codebase/go/bin
-DEFAULT_GO_VER=1.16
+DEFAULT_GO_VER=1.18
 eval "$(gimme $DEFAULT_GO_VER)" > /dev/null 2>&1
 
 
@@ -76,6 +77,7 @@ alias vi=vim
 alias vimrc='vi ~/.vimrc'
 alias cb="cd ~/codebase"
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias k=kubectl
 ##################################################################################################
 
 setupDevEnv () {
@@ -177,10 +179,26 @@ devOSA() {
 devKCP() {
     KCP_GOPATH="kcp"
     export GOPATH=~/codebase/$KCP_GOPATH
+    export PATH=$GOPATH/bin:$PATH
     KCP_ROOT=$GOPATH/src/github.com/kcp-dev/kcp
     alias cbc="cd $KCP_ROOT"
     export KUBECONFIG=$KCP_ROOT/.kcp/admin.kubeconfig
     alias kcp-start="cd $KCP_ROOT && go run ./cmd/kcp start"
+}
+
+kcp() {
+   devKCP
+   export STABLE_BRANCH=v0.5.0-alpha.1
+   export KUBECONFIG=~/.kube/kcp-prototype.kubeconfig
+
+   # install latest plugin
+   cd $KCP_ROOT
+   git checkout main
+   git fetch upstream
+   git checkout $STABLE_BRANCH
+   make install WHAT=./cmd/kubectl-kcp
+   make install WHAT=./cmd/kubectl-workspaces
+   make install WHAT=./cmd/kubectl-ws
 }
 
 dockerClear() {
